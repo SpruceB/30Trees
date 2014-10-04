@@ -23,7 +23,7 @@ class FarmData {
         self.init(name: name, size: 0, num_trees: 0, tree_data: [])
     }
     convenience init(from_array data_array: [AnyObject]) {
-        self.init(name: data_array[0] as String, size: data_array[1] as Double, num_trees: data_array[2] as Int, tree_data: data_array[3] as [Tree])
+        self.init(name: (data_array[0] as String), size: (data_array[1] as Double), num_trees: (data_array[2] as Int), tree_data: (data_array[3] as [Tree]))
     }
     func toArray() -> [AnyObject] {
         return [self.name, self.size, self.num_trees, self.tree_data]
