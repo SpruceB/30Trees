@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9504CD7319EDA56000268703 /* TreeDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9504CD7219EDA56000268703 /* TreeDataViewController.swift */; };
+		9504CD7519EDB89000268703 /* TreeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9504CD7419EDB89000268703 /* TreeData.swift */; };
 		95232F9F19DA440C000246C8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95232F9E19DA440C000246C8 /* SettingsViewController.swift */; };
 		9564657B19DB4FC200C9FAC6 /* FarmEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564657A19DB4FC200C9FAC6 /* FarmEditorViewController.swift */; };
 		9564657D19DB942200C9FAC6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9564657C19DB942200C9FAC6 /* CoreData.framework */; };
@@ -17,6 +19,7 @@
 		95C6916919D6443F005E0F43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95C6916719D6443F005E0F43 /* Main.storyboard */; };
 		95C6916B19D6443F005E0F43 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95C6916A19D6443F005E0F43 /* Images.xcassets */; };
 		95C6917719D6443F005E0F43 /* Swift_CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C6917619D6443F005E0F43 /* Swift_CalculatorTests.swift */; };
+		95E1BFAC19EF6066005985FA /* TreeDataEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1BFAB19EF6066005985FA /* TreeDataEditorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9504CD7219EDA56000268703 /* TreeDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeDataViewController.swift; sourceTree = "<group>"; };
+		9504CD7419EDB89000268703 /* TreeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeData.swift; sourceTree = "<group>"; };
 		95232F9E19DA440C000246C8 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9564657A19DB4FC200C9FAC6 /* FarmEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FarmEditorViewController.swift; sourceTree = "<group>"; };
 		9564657C19DB942200C9FAC6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -44,6 +49,7 @@
 		95C6917019D6443F005E0F43 /* 30TreesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 30TreesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95C6917519D6443F005E0F43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95C6917619D6443F005E0F43 /* Swift_CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_CalculatorTests.swift; sourceTree = "<group>"; };
+		95E1BFAB19EF6066005985FA /* TreeDataEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeDataEditorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				95BBEADB19DC925000DE9AD1 /* FarmData.swift */,
-				95BBEADE19DCE52300DE9AD1 /* FarmDataController.swift */,
+				9504CD7419EDB89000268703 /* TreeData.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -98,9 +104,12 @@
 			children = (
 				95BBEADD19DC925400DE9AD1 /* Model */,
 				95C6916119D6443F005E0F43 /* AppDelegate.swift */,
+				95BBEADE19DCE52300DE9AD1 /* FarmDataController.swift */,
 				95232F9E19DA440C000246C8 /* SettingsViewController.swift */,
 				9564657A19DB4FC200C9FAC6 /* FarmEditorViewController.swift */,
 				95BBEAE019DD83AE00DE9AD1 /* FarmDataEditorViewController.swift */,
+				9504CD7219EDA56000268703 /* TreeDataViewController.swift */,
+				95E1BFAB19EF6066005985FA /* TreeDataEditorViewController.swift */,
 				95C6916719D6443F005E0F43 /* Main.storyboard */,
 				95C6916A19D6443F005E0F43 /* Images.xcassets */,
 				95C6915F19D6443F005E0F43 /* Supporting Files */,
@@ -235,9 +244,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				95C6916219D6443F005E0F43 /* AppDelegate.swift in Sources */,
+				95E1BFAC19EF6066005985FA /* TreeDataEditorViewController.swift in Sources */,
 				95BBEADC19DC925000DE9AD1 /* FarmData.swift in Sources */,
 				9564657B19DB4FC200C9FAC6 /* FarmEditorViewController.swift in Sources */,
+				9504CD7519EDB89000268703 /* TreeData.swift in Sources */,
 				95BBEAE119DD83AE00DE9AD1 /* FarmDataEditorViewController.swift in Sources */,
+				9504CD7319EDA56000268703 /* TreeDataViewController.swift in Sources */,
 				95232F9F19DA440C000246C8 /* SettingsViewController.swift in Sources */,
 				95BBEADF19DCE52300DE9AD1 /* FarmDataController.swift in Sources */,
 			);

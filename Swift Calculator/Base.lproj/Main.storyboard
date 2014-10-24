@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Settings-->
         <scene sceneID="iN2-5W-g01">
             <objects>
                 <navigationController id="bL9-hW-FzR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="gpp-PV-PvK"/>
+                    <tabBarItem key="tabBarItem" title="Settings" id="gpp-PV-PvK"/>
+                    <navigationItem key="navigationItem" id="p1l-e5-KXO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sDf-fc-q0N">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -22,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="862" y="-920"/>
         </scene>
-        <!--Item-->
+        <!--Settings-->
         <scene sceneID="ebb-oF-UOP">
             <objects>
                 <viewController id="G9E-13-k24" customClass="SettingsViewController" customModule="_0Trees" customModuleProvider="target" sceneMemberID="viewController">
@@ -50,7 +51,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="PDL-4G-nbh"/>
+                    <tabBarItem key="tabBarItem" title="Settings" id="PDL-4G-nbh"/>
                     <navigationItem key="navigationItem" id="o8H-AD-m5M"/>
                     <connections>
                         <outlet property="farmButton" destination="xwR-7Q-cId" id="68P-C2-zzR"/>
@@ -62,31 +63,247 @@
             </objects>
             <point key="canvasLocation" x="1322" y="-920"/>
         </scene>
-        <!--Farm Editor View Controller-->
-        <scene sceneID="lYy-x9-OY6">
+        <!--Item-->
+        <scene sceneID="tCd-O9-0Bh">
             <objects>
-                <tableViewController id="kjh-D7-c8t" customClass="FarmEditorViewController" customModule="_0Trees" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="b6p-75-jmP">
+                <navigationController id="FNf-ci-CRz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="lCk-FQ-3bK"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dhd-lp-Hup">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Kon-sc-W7e" kind="relationship" relationship="rootViewController" id="QU1-p3-o6C"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QSZ-iC-vAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="736" y="-84"/>
+        </scene>
+        <!--Tree Data View Controller-->
+        <scene sceneID="j84-xa-qyZ">
+            <objects>
+                <tableViewController id="Kon-sc-W7e" customClass="TreeDataViewController" customModule="_0Trees" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="UC0-eH-pic">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="farm" textLabel="Fpn-8V-mMj" style="IBUITableViewCellStyleDefault" id="pzj-rU-gHx">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tree" textLabel="yIU-WW-4II" detailTextLabel="8lL-2b-tEL" style="IBUITableViewCellStyleSubtitle" id="AdD-7z-b4r">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pzj-rU-gHx" id="gxt-oy-anj">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AdD-7z-b4r" id="oLX-Ht-d8M">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fpn-8V-mMj">
+                                        <label opaque="NO" multipleTouchEnabled="YES" tag="1" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yIU-WW-4II">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" tag="2" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8lL-2b-tEL">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="swa-MC-7d1" kind="modal" identifier="FarmDataEditorSegue" id="Ca5-b8-dd5"/>
+                                    <segue destination="TgP-u2-BRP" kind="push" identifier="Tree Select Push" id="cBI-fB-OY3"/>
                                 </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Kon-sc-W7e" id="bfV-RS-fGh"/>
+                            <outlet property="delegate" destination="Kon-sc-W7e" id="wP8-Vn-Dey"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="B3T-v2-8kk">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="NAL-AH-YmK"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="km9-9h-mJ0">
+                            <connections>
+                                <segue destination="TgP-u2-BRP" kind="push" identifier="New Tree Push" id="Vev-Ke-Mpj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mPr-bI-z76" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1270" y="-52"/>
+        </scene>
+        <!--Tree Data Editor View Controller-->
+        <scene sceneID="DiW-lr-bG9">
+            <objects>
+                <tableViewController id="TgP-u2-BRP" customClass="TreeDataEditorViewController" customModule="_0Trees" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="J8f-Xy-Lxr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="vCH-6b-XS4">
+                            <rect key="frame" x="0.0" y="339.5" width="320" height="180"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="J4p-OV-M4L">
+                                    <rect key="frame" x="0.0" y="71" width="320" height="90"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <state key="normal" title="Next Tree">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <segue destination="TgP-u2-BRP" kind="push" identifier="Next Tree Push Segue" id="EIp-VU-F4r"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        </view>
+                        <sections>
+                            <tableViewSection headerTitle="GREEN" id="QRp-5x-VaP">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="T1h-NH-VsH">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T1h-NH-VsH" id="Uv0-st-5AW">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number of green" minimumFontSize="17" id="D2w-uk-Bud">
+                                                    <rect key="frame" x="15" y="7" width="195" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <action selector="textFieldEditingDidEnd:" destination="TgP-u2-BRP" eventType="editingDidEnd" id="zQl-MV-Q3E"/>
+                                                    </connections>
+                                                </textField>
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="999999999" id="PC7-Ip-Fdw">
+                                                    <rect key="frame" x="218" y="8" width="94" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="stepperValueChanged:" destination="TgP-u2-BRP" eventType="valueChanged" id="FWP-35-dLR"/>
+                                                    </connections>
+                                                </stepper>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="CBB " id="OOl-TL-lPx">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="VbY-43-69D">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VbY-43-69D" id="CB0-rV-HuF">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number of CBB" minimumFontSize="17" id="JiN-dv-Hye">
+                                                    <rect key="frame" x="15" y="7" width="195" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <action selector="textFieldEditingDidEnd:" destination="TgP-u2-BRP" eventType="editingDidEnd" id="1dO-gu-jcP"/>
+                                                    </connections>
+                                                </textField>
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="999999999" id="Jc6-KS-nWz">
+                                                    <rect key="frame" x="218" y="6" width="94" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="stepperValueChanged:" destination="TgP-u2-BRP" eventType="valueChanged" id="Mgh-It-5ja"/>
+                                                    </connections>
+                                                </stepper>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Fungus" id="Xet-Qb-GYA">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ct8-BN-wcN">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ct8-BN-wcN" id="gaq-eE-oeU">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number of fungus" minimumFontSize="17" id="Pwf-47-Yjn">
+                                                    <rect key="frame" x="15" y="7" width="195" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <action selector="textFieldEditingDidEnd:" destination="TgP-u2-BRP" eventType="editingDidEnd" id="beC-at-t4a"/>
+                                                    </connections>
+                                                </textField>
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="999999999" id="B4y-bM-pQk">
+                                                    <rect key="frame" x="218" y="8" width="94" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="stepperValueChanged:" destination="TgP-u2-BRP" eventType="valueChanged" id="St4-9S-dP8"/>
+                                                    </connections>
+                                                </stepper>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="TgP-u2-BRP" id="bmk-3t-3SH"/>
+                            <outlet property="delegate" destination="TgP-u2-BRP" id="D9T-Me-Jsd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="n7R-9G-elV">
+                        <barButtonItem key="backBarButtonItem" title="Done" id="BY0-zf-oVl"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cbbStepper" destination="Jc6-KS-nWz" id="6BL-rs-chd"/>
+                        <outlet property="cbbTextField" destination="JiN-dv-Hye" id="Gdb-2m-QyZ"/>
+                        <outlet property="fungusStepper" destination="B4y-bM-pQk" id="5sE-PY-BUb"/>
+                        <outlet property="fungusTextField" destination="Pwf-47-Yjn" id="aet-NY-cFq"/>
+                        <outlet property="greenStepper" destination="PC7-Ip-Fdw" id="T8v-MB-waX"/>
+                        <outlet property="greenTextField" destination="D2w-uk-Bud" id="mjg-rO-sRm"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VZQ-W9-znR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1821" y="-64"/>
+        </scene>
+        <!--Farm Editor View Controller-->
+        <scene sceneID="lYy-x9-OY6">
+            <objects>
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="kjh-D7-c8t" customClass="FarmEditorViewController" customModule="_0Trees" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="b6p-75-jmP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="farm" id="pzj-rU-gHx" customClass="FarmEditorUITableViewCell" customModule="_0Trees" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pzj-rU-gHx" id="gxt-oy-anj">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Pj-qI-hib">
+                                            <rect key="frame" x="15" y="6" width="247" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" label="1"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MdM-K9-Tb4">
+                                            <rect key="frame" x="270" y="-1" width="46" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Edit">
+                                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="editButtonTouchDown:" destination="kjh-D7-c8t" eventType="touchDown" id="pwV-rI-hfQ"/>
+                                                <segue destination="swa-MC-7d1" kind="push" identifier="FarmDataEditorSegue" id="OCp-vu-Wqf"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -98,14 +315,14 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="9ac-k1-Bje">
                             <connections>
                                 <action selector="addFarmButtonPressed:" destination="kjh-D7-c8t" id="rFx-Bm-SJt"/>
-                                <segue destination="swa-MC-7d1" kind="modal" identifier="FarmDataEditorNewFarmSegue" id="4fm-mw-YWs"/>
+                                <segue destination="swa-MC-7d1" kind="push" identifier="FarmDataEditorNewFarmSegue" id="4fm-mw-YWs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWR-E4-PD3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1894" y="-1464"/>
+            <point key="canvasLocation" x="1850" y="-1826"/>
         </scene>
         <!--Farm Data Editor View Controller-->
         <scene sceneID="Fa9-EH-zUV">
@@ -123,29 +340,42 @@
                                 <navigationItem id="Jn0-80-UCu">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ifh-vj-2EQ">
                                         <connections>
-                                            <action selector="cancelFarmEditing:" destination="swa-MC-7d1" id="SDl-Jf-DDQ"/>
+                                            <action selector="cancelButtonPressed:" destination="swa-MC-7d1" id="U3K-fH-PuY"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
                             </items>
                         </navigationBar>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="ZIr-tj-C36">
+                            <rect key="frame" x="0.0" y="383.5" width="320" height="184"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2dD-gL-wEA">
+                                    <rect key="frame" x="0.0" y="84" width="320" height="100"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.32156862745098042" green="0.84313725490196079" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                    <state key="normal" title="Done">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="doneButtonPressed:" destination="swa-MC-7d1" eventType="touchUpInside" id="MK8-Lg-JXN"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        </view>
                         <sections>
-                            <tableViewSection headerTitle="Farm Data" id="Ijx-1q-dgG">
+                            <tableViewSection headerTitle="Farm Name" id="Ijx-1q-dgG">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2IV-LP-6Q4">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2IV-LP-6Q4" id="xZQ-Ur-V2l">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Farm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eB0-iw-LDf">
-                                                    <rect key="frame" x="15" y="8" width="46" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="farm name" minimumFontSize="17" id="ahq-nO-b7P">
-                                                    <rect key="frame" x="151" y="5" width="161" height="30"/>
+                                                    <rect key="frame" x="15" y="7" width="297" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <gestureRecognizers/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -158,52 +388,45 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dDY-MG-cz9">
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Number of Acres" id="ZAf-YR-48E">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="At7-Pe-JIT">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dDY-MG-cz9" id="xv1-Gl-GLQ">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="At7-Pe-JIT" id="if9-eF-RrG">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acres" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Tce-ss-4HR">
-                                                    <rect key="frame" x="15" y="8" width="46" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number of acres" minimumFontSize="17" id="1U6-Jc-nhx">
-                                                    <rect key="frame" x="151" y="5" width="161" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number of acres" minimumFontSize="17" id="Zvl-BQ-abA">
+                                                    <rect key="frame" x="15" y="7" width="297" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                     <connections>
-                                                        <action selector="acreEditingDidEnd:" destination="swa-MC-7d1" eventType="editingDidEnd" id="u3V-xZ-hVf"/>
+                                                        <action selector="acreEditingDidEnd:" destination="swa-MC-7d1" eventType="editingDidEnd" id="JjD-tO-B48"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1mP-Nc-4XD">
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Number of trees" id="gHU-fl-Kfp">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jZ1-uc-cfv">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1mP-Nc-4XD" id="QVC-td-MgM">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jZ1-uc-cfv" id="JSs-E1-m87">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trees" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I2o-Yp-xHt">
-                                                    <rect key="frame" x="15" y="8" width="46" height="27"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number of trees" minimumFontSize="17" id="a89-Jw-0O3">
-                                                    <rect key="frame" x="151" y="5" width="161" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number of trees" minimumFontSize="17" id="Yp9-Jh-7At">
+                                                    <rect key="frame" x="15" y="7" width="297" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                     <connections>
-                                                        <action selector="touchUpOutsideTextField:" destination="swa-MC-7d1" eventType="editingDidEnd" id="mt8-Qu-yz8"/>
-                                                        <action selector="treeNumEditingDidEnd:" destination="swa-MC-7d1" eventType="editingDidEnd" id="6RP-ys-0hF"/>
+                                                        <action selector="treeNumEditingDidEnd:" destination="swa-MC-7d1" eventType="editingDidEnd" id="Z7t-Yt-RAI"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -219,9 +442,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="SZ5-9T-jld"/>
                     <connections>
-                        <outlet property="acre_field" destination="1U6-Jc-nhx" id="2sP-yE-ZBc"/>
+                        <outlet property="acre_field" destination="Zvl-BQ-abA" id="qTb-tp-TdS"/>
                         <outlet property="farm_name" destination="ahq-nO-b7P" id="efK-Xi-zCd"/>
-                        <outlet property="tree_field" destination="a89-Jw-0O3" id="nAA-Ld-3DY"/>
+                        <outlet property="tree_field" destination="Yp9-Jh-7At" id="qU9-bR-3sv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rlS-Ry-3QI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -247,6 +470,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="bL9-hW-FzR" kind="relationship" relationship="viewControllers" id="rvc-XJ-F9D"/>
+                        <segue destination="FNf-ci-CRz" kind="relationship" relationship="viewControllers" id="apf-gb-BHw"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -260,12 +484,10 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4">
-            <size key="portraitSize" width="320" height="568"/>
-            <size key="landscapeSize" width="568" height="320"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="cBI-fB-OY3"/>
         <segue reference="4fm-mw-YWs"/>
     </inferredMetricsTieBreakers>
 </document>

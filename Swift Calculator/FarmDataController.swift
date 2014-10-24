@@ -8,25 +8,66 @@
 
 import Foundation
 
-let FarmDataControllerSharedInstance = FarmDataController()
+let persisted = FarmDataController.persisted_data
+let FarmDataControllerSharedInstance = persisted != nil ? persisted! : FarmDataController()
 
-class FarmDataController {
+let FARMS_DATA_KEY = "farms"
+let FARMS_LIST_KEY = "farms_list"
+let SELECTED_FARM_KEY = "selected_farm"
+let SELECTED_FARM_INDEX_KEY = "selected_farm_index"
+
+class FarmDataController: NSObject, NSCoding {
+    
     class var sharedInstance: FarmDataController {
         return FarmDataControllerSharedInstance
     }
-    var farms_list: [FarmData] = []
-    var selected_farm: FarmData?
-    init(){
-        
-    }
-    var data_array:[AnyObject]{
+    
+    class var persisted_data: FarmDataController? {
         get {
-            return farms_list.map({(farm: FarmData) -> AnyObject in farm.toArray()})
+            if let data = NSUserDefaults.standardUserDefaults().dataForKey(FARMS_DATA_KEY) {
+                return NSKeyedUnarchiver.unarchiveObjectWithData(data) as FarmDataController?
+            } else {
+                return nil
+            }
         }
         
-        set(data) {
-            farms_list = data.map({(farm: AnyObject) -> FarmData in farm as FarmData})
+        set {
+            var defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(newValue!), forKey: FARMS_DATA_KEY)
+            defaults.synchronize()
         }
+    }
+    
+    var farms_list: [FarmData] = [] {
+        didSet {
+            sync()
+        }
+    }
+    
+    var selected_farm: FarmData?
+    var selected_farm_index: Int?
+    
+    
+    override init(){
+        super.init()
+        sync()
+    }
+    
+    required init(coder: NSCoder) {
+        self.farms_list = coder.decodeObjectForKey(FARMS_LIST_KEY) as [FarmData]
+        self.selected_farm = coder.decodeObjectForKey(SELECTED_FARM_KEY) as FarmData?
+        self.selected_farm_index = coder.decodeObjectForKey(SELECTED_FARM_INDEX_KEY) as Int?
+    }
+    
+    func encodeWithCoder(coder: NSCoder) {
+        coder.encodeObject(farms_list, forKey: FARMS_LIST_KEY)
+        coder.encodeObject(selected_farm, forKey: SELECTED_FARM_KEY)
+        coder.encodeObject(selected_farm_index, forKey: SELECTED_FARM_INDEX_KEY)
+    }
+    
+    func sync() {
+        println("Testing")
+        FarmDataController.persisted_data = self
     }
 }
 

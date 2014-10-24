@@ -16,20 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
     
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
-        if let data_array = defaults.objectForKey("farms") as? [AnyObject] {
-            farms.data_array = data_array
-        } else {
-            defaults.setObject(farms.data_array, forKey: "farms")
-        }
-        farms.data_array = [FarmData(name: "Yo bitch")]
         return true
     }
     func applicationDidBecomeActive(application: UIApplication) {
-//        println("became active")
+
     }
     func applicationWillResignActive(application: UIApplication) {
-        defaults.setObject(farms.data_array, forKey: "farms")
-        defaults.synchronize()
+        farms.sync()
     }
+
 }
 

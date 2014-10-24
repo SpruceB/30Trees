@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
         }
         
         if farmButton.highlighted {
-            self.navigationController.navigationBarHidden = false
+            self.navigationController!.navigationBarHidden = false
             
         }
     }
@@ -27,13 +27,13 @@ class SettingsViewController: UIViewController {
         
     }
     override func viewWillDisappear(animated: Bool) {
-        self.navigationController.navigationBarHidden = true
+        self.navigationController!.navigationBarHidden = true
     }
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     override func viewWillAppear(animated: Bool) {
-        self.navigationController.navigationBarHidden = true
+        self.navigationController!.navigationBarHidden = true
     }
     
 }
