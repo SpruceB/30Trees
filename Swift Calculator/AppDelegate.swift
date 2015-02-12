@@ -12,18 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
+    // Gets a reference to the FarmDataController singleton instance.
     var farms: FarmDataController = FarmDataController.sharedInstance
-    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
     
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil))
         return true
     }
     func applicationDidBecomeActive(application: UIApplication) {
 
     }
+    
     func applicationWillResignActive(application: UIApplication) {
+        // Makes sure the data for the farms is saved before the application closes.
         farms.sync()
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
-
 }
 

@@ -39,7 +39,6 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     
     func textField(textField: UITextField!, shouldChangeCharactersInRange range: NSRange, replacementString string: String!) -> Bool {
         if textField === acre_field {
-            println(textField.text)
             if string == "." && textField.text.componentsSeparatedByString(".").count-1 >= 1 {
                 return false
             }
@@ -52,7 +51,6 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
             if is_new_farm && farm == FarmData(name: "") {
                 self.navigationController?.popViewControllerAnimated(true)
             } else {
-                print("yuppers "); println(is_new_farm)
                 if is_new_farm {
                     FarmDataController.sharedInstance.farms_list.append((farm!))
                 }
@@ -91,7 +89,6 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
             acre_field.text = farm_data.size == round(farm_data.size) ? "\(Int(farm_data.size))" : "\(farm_data.size)"
             tree_field.text = "\(farm_data.num_trees)"
         } else {
-            println("whooo")
             farm = FarmData(name: "")
         }
     }

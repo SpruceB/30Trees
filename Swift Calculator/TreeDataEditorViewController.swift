@@ -13,10 +13,10 @@ let NEXT_TREE_SEGUE = "Next Tree Push Segue"
 class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
     var tree_data: [TreeData]? {
         get {
-            return FarmDataController.sharedInstance.selected_farm!.trees_data
+            return FarmDataController.sharedInstance.selected_farm?.trees_data
         }
         set {
-            FarmDataController.sharedInstance.selected_farm!.trees_data = newValue!
+            FarmDataController.sharedInstance.selected_farm?.trees_data = newValue!
         }
     }
     var tree_index: Int?
@@ -32,8 +32,12 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
     
     
     override func viewDidLoad() {
-        navigationController?.setViewControllers([(navigationController?.viewControllers.first as UIViewController), self], animated: true)
-        
+        // The following line changes the navigationController's view stack so pressing the back button goes to the root view
+//        let root_view_controller = navigationController?.viewControllers.first! as UIViewController
+//        println(navigationController?.viewControllers)
+////        navigationController?.setViewControllers([navigationController?.viewControllers[0] as UIViewController, self], animated: true)
+//        println(navigationController?.viewControllers)
+        navigationController?.setViewControllers([(navigationController?.viewControllers.first as UIViewController), (navigationController?.viewControllers.last as UIViewController)], animated: true)
         self.tableView.allowsSelection = false
         self.tableView.alwaysBounceVertical = false
         self.tableView.scrollEnabled = false
@@ -48,14 +52,13 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
         if tree != nil {
             syncInteractablesToData()
         } else {
-            println("No tree variable. Should really be throwing an error here.")
+            NSException(name: "NilTreeError", reason: "Somehow a TreeDataEditor was entered without an actual tree to edit.", userInfo: nil).raise()
         }
         
         var gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")
         gestureRecognizer.cancelsTouchesInView = false
         self.tableView.addGestureRecognizer(gestureRecognizer)
     }
-    
     
     func closeKeyboards() {
         self.tableView.endEditing(false)
@@ -96,14 +99,14 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
         (segue.destinationViewController as TreeDataEditorViewController).tree_index = tree_index! + 1
     }
     
-    
-    
+    // For some reason, just implementing this method (even with nothing in it) stops opening keyboard from scrolling view up.
     override func viewWillAppear(animated: Bool) {
-        // For some reason, just implementing this method stops keyboard from scrolling view up.
+        if tree_data == nil {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
-        println(tree_data!)
         FarmDataController.sharedInstance.sync()
     }
 
