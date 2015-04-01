@@ -52,6 +52,7 @@ class FarmDataController: NSObject, NSCoding {
     
     required init(coder: NSCoder) {
         self.farms_list = coder.decodeObjectForKey(FARMS_LIST_KEY) as [FarmData]
+
         self.selected_farm_index = coder.decodeObjectForKey(SELECTED_FARM_INDEX_KEY) as Int?
         if let index = selected_farm_index {
             self.selected_farm = farms_list[index]

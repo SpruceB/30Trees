@@ -87,7 +87,6 @@ class TreeDataViewController: UITableViewController, UITableViewDataSource, UITa
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             tableView.reloadData()
             FarmDataController.sharedInstance.sync()
-            
         }
     }
     

@@ -16,6 +16,28 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var farm_name: UITextField!
     @IBOutlet var acre_field: UITextField!
     @IBOutlet var tree_field: UITextField!
+    @IBOutlet var location_field: UITextField!
+    
+    @IBAction func fieldEditingDidEnd(sender: UITextField) {
+        farm!.name = farm_name.text
+        
+        var value = (acre_field.text as NSString).doubleValue
+        if value == round(value) {
+            sender.text = "\(Int(value))"
+        }
+        farm!.size = value
+        
+        if let num = tree_field.text.toInt() {
+            sender.text = "\(num)"
+            farm!.num_trees = num
+        } else {
+            sender.text = "\(farm!.num_trees)"
+        }
+        
+        farm!.location = location_field.text
+
+    }
+    
     @IBAction func farmNameEditingDidEnd(sender: UITextField) {
         farm!.name = sender.text
     }
