@@ -68,7 +68,11 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
-    @IBAction func doneButtonPressed(sender: UIButton) {
+    func pop() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    @IBAction func saveButtonPressed(sender: AnyObject) {
         if self.farm != nil {
             if is_new_farm && farm == FarmData(name: "") {
                 self.navigationController?.popViewControllerAnimated(true)
@@ -84,16 +88,17 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
-
-    @IBAction func cancelButtonPressed(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
     
     override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.navigationBarHidden = false
+    }
+    override func viewDidAppear(animated: Bool) {
+        let back_button = UIBarButtonItem()
+        back_button.title = "Cancel"
+        self.navigationController?.navigationItem.backBarButtonItem = back_button
     }
     override func viewWillDisappear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
+//        self.navigationController?.navigationBarHidden = false
     }
     
     override func viewDidLoad() {
@@ -120,6 +125,6 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
 }

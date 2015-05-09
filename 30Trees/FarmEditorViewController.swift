@@ -111,7 +111,6 @@ class FarmEditorViewController: UITableViewController, UITableViewDelegate {
             
         }
         else if segue.identifier == FARM_DATA_EDITOR_NEW_FARM_SEGUE {
-            
         }
     }
 }
