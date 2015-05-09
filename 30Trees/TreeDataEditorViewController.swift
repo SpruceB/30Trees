@@ -33,11 +33,11 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         // The following line changes the navigationController's view stack so pressing the back button goes to the root view
-//        let root_view_controller = navigationController?.viewControllers.first! as UIViewController
-//        println(navigationController?.viewControllers)
-////        navigationController?.setViewControllers([navigationController?.viewControllers[0] as UIViewController, self], animated: true)
-//        println(navigationController?.viewControllers)
-        navigationController?.setViewControllers([(navigationController?.viewControllers.first as! UIViewController), (navigationController?.viewControllers.last as! UIViewController)], animated: true)
+//        navigationController?.setViewControllers([(navigationController?.viewControllers.first as! UIViewController), (navigationController?.viewControllers.last as! UIViewController)], animated: true)
+//        self.navigationItem.setHidesBackButton(true, animated: false)
+        let back_button = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Bordered, target: self, action: "popToRoot")
+        self.navigationItem.leftBarButtonItem = back_button
+
         self.tableView.allowsSelection = false
         self.tableView.alwaysBounceVertical = false
         self.tableView.scrollEnabled = false
@@ -94,9 +94,15 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
             syncInteractablesToData()
         }
     }
-    
+    func popToRoot() {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        (segue.destinationViewController as! TreeDataEditorViewController).tree_index = tree_index! + 1
+        let dest = segue.destinationViewController as! TreeDataEditorViewController
+        dest.tree_index = tree_index! + 1
+//        dest.navigationItem.setHidesBackButton(true, animated: false)
+//        let back_button = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Bordered, target: dest, action: "popToRoot")
+//        dest.navigationItem.setLeftBarButtonItem(back_button, animated: false)
     }
     
     // For some reason, just implementing this method (even with nothing in it) stops opening keyboard from scrolling view up.
