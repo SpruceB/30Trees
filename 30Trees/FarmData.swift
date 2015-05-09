@@ -37,14 +37,14 @@ class FarmData: NSObject, NSCoding, Equatable {
     }
     
     required init(coder: NSCoder) {
-        self.name = coder.decodeObjectForKey(NAME_KEY) as String
+        self.name = coder.decodeObjectForKey(NAME_KEY) as! String
         self.size = coder.decodeDoubleForKey(SIZE_KEY)
         self.num_trees = coder.decodeIntegerForKey(NUM_TREES_KEY)
-        self.trees_data = coder.decodeObjectForKey(TREES_DATA_KEY) as [TreeData]
+        self.trees_data = coder.decodeObjectForKey(TREES_DATA_KEY) as! [TreeData]
         self.ab_alive = coder.decodeIntegerForKey(AB_ALIVE)
         self.ab_dead = coder.decodeIntegerForKey(AB_DEAD)
         self.cd = coder.decodeIntegerForKey(CD)
-        self.location = coder.decodeObjectForKey(LOCATION) as String
+        self.location = coder.decodeObjectForKey(LOCATION) as! String
         
     }
     

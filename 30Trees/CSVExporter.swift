@@ -53,13 +53,13 @@ class CSVExporter {
         }
     }
     
-    func saveFile(filename: String, directory_path: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)[0] as String) -> String {
+    func saveFile(filename: String, directory_path: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)[0] as! String) -> String {
         let filepath = directory_path + "/\(filename)"
         csv_string.writeToFile(filepath, atomically: false, encoding: NSUnicodeStringEncoding, error: nil)
         return filepath
     }
     
-    func deleteFile(filename: String, directory_path: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)[0] as String) {
+    func deleteFile(filename: String, directory_path: String = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)[0] as! String) {
         NSFileManager.defaultManager().removeItemAtPath(directory_path + "/\(filename)", error: nil)
     }
     
@@ -72,9 +72,9 @@ class CSVExporter {
         mail_composer.setMessageBody("Testing!\n", isHTML: false)
         deleteFile(filename)
         let filepath = saveFile(filename)
-        let data = NSData.dataWithContentsOfMappedFile(filepath) as NSData
+        let data = NSData.dataWithContentsOfMappedFile(filepath) as! NSData
         mail_composer.addAttachmentData(data, mimeType: "text/csv", fileName: filename)
-        view.presentViewController(mail_composer, animated: true, nil)
+        view.presentViewController(mail_composer, animated: true, completion: nil)
         deleteFile(filename)
     }
 }

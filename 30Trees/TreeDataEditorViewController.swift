@@ -37,7 +37,7 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
 //        println(navigationController?.viewControllers)
 ////        navigationController?.setViewControllers([navigationController?.viewControllers[0] as UIViewController, self], animated: true)
 //        println(navigationController?.viewControllers)
-        navigationController?.setViewControllers([(navigationController?.viewControllers.first as UIViewController), (navigationController?.viewControllers.last as UIViewController)], animated: true)
+        navigationController?.setViewControllers([(navigationController?.viewControllers.first as! UIViewController), (navigationController?.viewControllers.last as! UIViewController)], animated: true)
         self.tableView.allowsSelection = false
         self.tableView.alwaysBounceVertical = false
         self.tableView.scrollEnabled = false
@@ -96,7 +96,7 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        (segue.destinationViewController as TreeDataEditorViewController).tree_index = tree_index! + 1
+        (segue.destinationViewController as! TreeDataEditorViewController).tree_index = tree_index! + 1
     }
     
     // For some reason, just implementing this method (even with nothing in it) stops opening keyboard from scrolling view up.

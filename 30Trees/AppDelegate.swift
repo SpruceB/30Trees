@@ -14,8 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     // Gets a reference to the FarmDataController singleton instance.
     var farms: FarmDataController = FarmDataController.sharedInstance
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
-//        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil))
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         return true
     }
     func applicationDidBecomeActive(application: UIApplication) {

@@ -22,7 +22,7 @@ class TreeDataViewController: UITableViewController, UITableViewDataSource, UITa
     
     var farm: FarmData? {
         get {
-            return FarmDataController.sharedInstance.selected_farm?
+            return FarmDataController.sharedInstance.selected_farm
         }
     }
     override func viewDidLoad() {
@@ -63,9 +63,9 @@ class TreeDataViewController: UITableViewController, UITableViewDataSource, UITa
         let row = indexPath.row
         let tree = farm!.trees_data[row]
         var cell = tableView.dequeueReusableCellWithIdentifier(TREE_DATA_VIEW_CELL_IDENTIFIER)!
-         as UITableViewCell
-        var title = cell.contentView.viewWithTag(1) as UILabel
-        var subtitle = cell.contentView.viewWithTag(2) as UILabel
+         as! UITableViewCell
+        var title = cell.contentView.viewWithTag(1) as! UILabel
+        var subtitle = cell.contentView.viewWithTag(2) as! UILabel
         title.text = "Tree \(row+1)"
         title.textColor = cell.tintColor
         subtitle.text = "Green: \(tree.green) CBB: \(tree.cbb) Fungus: \(tree.fungus)"
@@ -92,10 +92,10 @@ class TreeDataViewController: UITableViewController, UITableViewDataSource, UITa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == NEW_TREE_PUSH_SEGUE {
-            (segue.destinationViewController as TreeDataEditorViewController).tree_index = farm?.trees_data.count
+            (segue.destinationViewController as! TreeDataEditorViewController).tree_index = farm?.trees_data.count
         }
         else if segue.identifier == SELECT_TREE_PUSH_SEGUE {
-            (segue.destinationViewController as TreeDataEditorViewController).tree_index = (view as UITableView).indexPathForSelectedRow()!.row
+            (segue.destinationViewController as! TreeDataEditorViewController).tree_index = (view as! UITableView).indexPathForSelectedRow()!.row
         }
         
     }

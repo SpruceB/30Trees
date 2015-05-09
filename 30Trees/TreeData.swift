@@ -32,7 +32,7 @@ class TreeData: NSObject, NSCoding, Equatable {
         self.green = coder.decodeIntegerForKey(GREEN_KEY)
         self.cbb = coder.decodeIntegerForKey(CBB_KEY)
         self.fungus = coder.decodeIntegerForKey(FUNGUS_KEY)
-        self.date_created = coder.decodeObjectForKey(DATE_KEY) as NSDate
+        self.date_created = coder.decodeObjectForKey(DATE_KEY) as! NSDate
         super.init()
     }
     

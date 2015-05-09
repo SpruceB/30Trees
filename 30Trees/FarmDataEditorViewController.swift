@@ -59,7 +59,7 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    func textField(textField: UITextField!, shouldChangeCharactersInRange range: NSRange, replacementString string: String!) -> Bool {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if textField === acre_field {
             if string == "." && textField.text.componentsSeparatedByString(".").count-1 >= 1 {
                 return false

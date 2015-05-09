@@ -39,7 +39,7 @@ class PositionalDataViewController: UITableViewController {
             for ui_element in [ABAliveTextField, ABDeadTextField, CDTextField, ABAliveStepper, ABDeadStepper, CDStepper] {
                 ui_element.enabled = false
                 if ui_element is UITextField {
-                    (ui_element as UITextField).text = ""
+                    (ui_element as! UITextField).text = ""
                 }
             }
             

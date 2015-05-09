@@ -39,7 +39,7 @@ class FarmEditorViewController: UITableViewController, UITableViewDelegate {
     }
     
     @IBAction func editButtonTouchDown(sender: UIButton) {
-        var edit_button_path = tableView.indexPathForCell(sender.superview!.superview! as UITableViewCell)
+        var edit_button_path = tableView.indexPathForCell(sender.superview!.superview! as! UITableViewCell)
         edit_row = edit_button_path!.row
         if self.tableView.indexPathForSelectedRow() != edit_button_path {
             tableView.deselectRowAtIndexPath(edit_button_path!, animated: false)
@@ -48,24 +48,24 @@ class FarmEditorViewController: UITableViewController, UITableViewDelegate {
     
     override func tableView(tableView: UITableView, willDeselectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         var cell = tableView.cellForRowAtIndexPath(indexPath)
-        (cell?.viewWithTag(2) as UIButton).setTitleColor(cell?.tintColor, forState: UIControlState.Normal)
+        (cell?.viewWithTag(2)as! UIButton).setTitleColor(cell?.tintColor, forState: UIControlState.Normal)
         return indexPath
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var cell = tableView.cellForRowAtIndexPath(indexPath)
-        (cell?.viewWithTag(2) as UIButton).setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        (cell?.viewWithTag(2) as! UIButton).setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         cell?.setHighlighted(true, animated: false)
         farms.selected_farm = farms.farms_list[indexPath.row]
         farms.selected_farm_index = indexPath.row
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("farm") as UITableViewCell
-        var label = cell.contentView.viewWithTag(1) as UILabel
+        var cell = tableView.dequeueReusableCellWithIdentifier("farm") as! UITableViewCell
+        var label = cell.contentView.viewWithTag(1) as! UILabel
         label.text = "\(farms.farms_list[indexPath.row].name)"
         label.highlightedTextColor = UIColor.whiteColor()
-        var edit_button = cell.contentView.viewWithTag(2) as UIButton
+        var edit_button = cell.contentView.viewWithTag(2) as! UIButton
         edit_button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Selected)
         cell.selectedBackgroundView = UIView()
         cell.selectedBackgroundView.backgroundColor = UIColor(red:0.322, green:0.843, blue:0.404, alpha:1)
@@ -106,7 +106,7 @@ class FarmEditorViewController: UITableViewController, UITableViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == FARM_DATA_EDITOR_SEGUE {
-            let editor_controller = segue.destinationViewController as FarmDataEditorViewController
+            let editor_controller = segue.destinationViewController as! FarmDataEditorViewController
             editor_controller.farm = farms.farms_list[edit_row!]
             
         }

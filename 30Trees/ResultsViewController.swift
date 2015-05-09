@@ -23,8 +23,8 @@ class ResultsViewController: UIViewController {
     }
     override func viewWillAppear(animated: Bool) {
         if let farm = FarmDataController.sharedInstance.selected_farm {
-            var cbb_count = farm.trees_data.reduce(0, {Double($1.cbb) + Double($1.fungus) + $0})
-            var total = cbb_count + farm.trees_data.reduce(0, {Double($1.green) + $0})
+            var cbb_count = farm.trees_data.reduce(0, combine: {Double($1.cbb) + Double($1.fungus) + $0})
+            var total = cbb_count + farm.trees_data.reduce(0, combine: {Double($1.green) + $0})
             if total != 0 {
                 var infestation_rate = round(cbb_count/total * 100 * 10)/10
                 infestationRateLabel.text = "\(infestation_rate)%"

@@ -24,7 +24,7 @@ class FarmDataController: NSObject, NSCoding {
     class var persisted_data: FarmDataController? {
         get {
             if let data = NSUserDefaults.standardUserDefaults().dataForKey(FARMS_DATA_KEY) {
-                return NSKeyedUnarchiver.unarchiveObjectWithData(data) as FarmDataController?
+                return NSKeyedUnarchiver.unarchiveObjectWithData(data) as! FarmDataController?
             } else {
                 return nil
             }
@@ -51,9 +51,9 @@ class FarmDataController: NSObject, NSCoding {
     }
     
     required init(coder: NSCoder) {
-        self.farms_list = coder.decodeObjectForKey(FARMS_LIST_KEY) as [FarmData]
+        self.farms_list = coder.decodeObjectForKey(FARMS_LIST_KEY) as! [FarmData]
 
-        self.selected_farm_index = coder.decodeObjectForKey(SELECTED_FARM_INDEX_KEY) as Int?
+        self.selected_farm_index = coder.decodeObjectForKey(SELECTED_FARM_INDEX_KEY) as! Int?
         if let index = selected_farm_index {
             self.selected_farm = farms_list[index]
         } else {
