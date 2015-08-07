@@ -80,14 +80,14 @@ class TreeDataEditorViewController: UITableViewController, UITextFieldDelegate {
         fungusStepper.value = Double(tree!.fungus)
     }
     func syncDataToTextFields() {
-        tree?.green = greenTextField.text.toInt()!
-        tree?.cbb = cbbTextField.text.toInt()!
-        tree?.fungus = fungusTextField.text.toInt()!
+        tree?.green = Int(greenTextField.text!)!
+        tree?.cbb = Int(cbbTextField.text!)!
+        tree?.fungus = Int(fungusTextField.text!)!
         syncInteractablesToData()
     }
     
     @IBAction func textFieldEditingDidEnd(sender: UITextField) {
-        if let value = sender.text.toInt() {
+        if let value = Int(sender.text!) {
             sender.text = "\(value)"
             syncDataToTextFields()
         } else {

@@ -33,7 +33,7 @@ class PositionalDataViewController: UITableViewController {
                 ui_element.enabled = true
             }
         } else {
-            var alert = UIAlertView(title: "No Farm Selected", message: "You need to select a farm before you can edit positional data.", delegate: self, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "No Farm Selected", message: "You need to select a farm before you can edit positional data.", delegate: self, cancelButtonTitle: "OK")
             alert.show()
             
             for ui_element in [ABAliveTextField, ABDeadTextField, CDTextField, ABAliveStepper, ABDeadStepper, CDStepper] {
@@ -45,7 +45,7 @@ class PositionalDataViewController: UITableViewController {
             
         }
         
-        var gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")
         gestureRecognizer.cancelsTouchesInView = false
         self.tableView.addGestureRecognizer(gestureRecognizer)
         
@@ -65,9 +65,9 @@ class PositionalDataViewController: UITableViewController {
     }
     
     func syncDataToTextFields() {
-        farm?.ab_alive = ABAliveTextField.text.toInt()!
-        farm?.ab_dead = ABDeadTextField.text.toInt()!
-        farm?.cd = CDTextField.text.toInt()!
+        farm?.ab_alive = Int(ABAliveTextField.text!)!
+        farm?.ab_dead = Int(ABDeadTextField.text!)!
+        farm?.cd = Int(CDTextField.text!)!
         syncInteractablesToData()
     }
     
@@ -79,7 +79,7 @@ class PositionalDataViewController: UITableViewController {
     }
     
     @IBAction func textFieldEditingDidEnd(sender: UITextField) {
-        if let value = sender.text.toInt() {
+        if let value = Int(sender.text!) {
             sender.text = "\(value)"
             syncDataToTextFields()
         } else {

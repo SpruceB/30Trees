@@ -19,31 +19,31 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var location_field: UITextField!
     
     @IBAction func fieldEditingDidEnd(sender: UITextField) {
-        farm!.name = farm_name.text
+        farm!.name = farm_name.text!
         
-        var value = (acre_field.text as NSString).doubleValue
+        let value = (acre_field.text! as NSString).doubleValue
         if value == round(value) {
             sender.text = "\(Int(value))"
         }
         farm!.size = value
         
-        if let num = tree_field.text.toInt() {
+        if let num = Int(tree_field.text!) {
             sender.text = "\(num)"
             farm!.num_trees = num
         } else {
             sender.text = "\(farm!.num_trees)"
         }
         
-        farm!.location = location_field.text
+        farm!.location = location_field.text!
 
     }
     
     @IBAction func farmNameEditingDidEnd(sender: UITextField) {
-        farm!.name = sender.text
+        farm!.name = sender.text!
     }
 
     @IBAction func acreEditingDidEnd(sender: UITextField) {
-        var value = (sender.text as NSString).doubleValue
+        let value = Double(sender.text!)!
         if value == round(value) {
             sender.text = "\(Int(value))"
         }
@@ -51,7 +51,7 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func treeNumEditingDidEnd(sender: UITextField) {
-        if let value = sender.text.toInt() {
+        if let value = Int(sender.text!) {
             sender.text = "\(value)"
             farm!.num_trees = value
         } else {
@@ -61,7 +61,7 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if textField === acre_field {
-            if string == "." && textField.text.componentsSeparatedByString(".").count-1 >= 1 {
+            if string == "." && (textField.text!.componentsSeparatedByString(".").count - 1) >= 1 {
                 return false
             }
         }
@@ -107,7 +107,7 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
         self.tableView.scrollEnabled = false
         
         acre_field.delegate = self
-        var gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")
         gestureRecognizer.cancelsTouchesInView = false
         self.tableView.addGestureRecognizer(gestureRecognizer)
         if let farm_data = farm {

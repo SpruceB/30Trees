@@ -12,11 +12,11 @@ let NEW_TREE_PUSH_SEGUE = "New Tree Push"
 let SELECT_TREE_PUSH_SEGUE = "Tree Select Push"
 let TREE_DATA_VIEW_CELL_IDENTIFIER = "tree"
 
-class TreeDataViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
+class TreeDataViewController: UITableViewController, UIAlertViewDelegate {
     @IBOutlet var new_farm_button: UIBarButtonItem!
     @IBOutlet var clear_button: UIBarButtonItem!
     @IBAction func clearButtonPressed(sender: UIBarButtonItem) {
-        var clear_alert = UIAlertView(title: "Are you sure?", message: "This will delete all tree data and cannot be undone.", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Clear")
+        let clear_alert = UIAlertView(title: "Are you sure?", message: "This will delete all tree data and cannot be undone.", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Clear")
         clear_alert.show()
     }
     
@@ -33,7 +33,7 @@ class TreeDataViewController: UITableViewController, UITableViewDataSource, UITa
         if farm == nil {
             new_farm_button.enabled = false
             clear_button.enabled = false
-            var alert = UIAlertView(title: "No Farm Selected", message: "You need to select a farm before you can add trees.", delegate: self, cancelButtonTitle: "OK")
+            let alert = UIAlertView(title: "No Farm Selected", message: "You need to select a farm before you can add trees.", delegate: self, cancelButtonTitle: "OK")
             alert.show()
         } else {
             new_farm_button.enabled = true
@@ -62,10 +62,9 @@ class TreeDataViewController: UITableViewController, UITableViewDataSource, UITa
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let row = indexPath.row
         let tree = farm!.trees_data[row]
-        var cell = tableView.dequeueReusableCellWithIdentifier(TREE_DATA_VIEW_CELL_IDENTIFIER)!
-         as! UITableViewCell
-        var title = cell.contentView.viewWithTag(1) as! UILabel
-        var subtitle = cell.contentView.viewWithTag(2) as! UILabel
+        let cell = tableView.dequeueReusableCellWithIdentifier(TREE_DATA_VIEW_CELL_IDENTIFIER)!
+        let title = cell.contentView.viewWithTag(1) as! UILabel
+        let subtitle = cell.contentView.viewWithTag(2) as! UILabel
         title.text = "Tree \(row+1)"
         title.textColor = cell.tintColor
         subtitle.text = "Green: \(tree.green) CBB: \(tree.cbb) Fungus: \(tree.fungus)"
@@ -95,7 +94,7 @@ class TreeDataViewController: UITableViewController, UITableViewDataSource, UITa
             (segue.destinationViewController as! TreeDataEditorViewController).tree_index = farm?.trees_data.count
         }
         else if segue.identifier == SELECT_TREE_PUSH_SEGUE {
-            (segue.destinationViewController as! TreeDataEditorViewController).tree_index = (view as! UITableView).indexPathForSelectedRow()!.row
+            (segue.destinationViewController as! TreeDataEditorViewController).tree_index = (view as! UITableView).indexPathForSelectedRow!.row
         }
         
     }

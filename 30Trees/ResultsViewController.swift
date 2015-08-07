@@ -23,18 +23,18 @@ class ResultsViewController: UIViewController {
     }
     override func viewWillAppear(animated: Bool) {
         if let farm = FarmDataController.sharedInstance.selected_farm {
-            var cbb_count = farm.trees_data.reduce(0, combine: {Double($1.cbb) + Double($1.fungus) + $0})
-            var total = cbb_count + farm.trees_data.reduce(0, combine: {Double($1.green) + $0})
+            let cbb_count = farm.trees_data.reduce(0, combine: {Double($1.cbb) + Double($1.fungus) + $0})
+            let total = cbb_count + farm.trees_data.reduce(0, combine: {Double($1.green) + $0})
             if total != 0 {
-                var infestation_rate = round(cbb_count/total * 100 * 10)/10
+                let infestation_rate = round(cbb_count/total * 100 * 10)/10
                 infestationRateLabel.text = "\(infestation_rate)%"
             } else {
                 infestationRateLabel.text = "No Data"
             }
             
-            var positional_data_total = Double(farm.ab_alive + farm.ab_dead + farm.cd)
+            let positional_data_total = Double(farm.ab_alive + farm.ab_dead + farm.cd)
             if positional_data_total != 0 {
-                var ab_alive_percentage = round(Double(farm.ab_alive)/positional_data_total * 100 * 10)/10
+                let ab_alive_percentage = round(Double(farm.ab_alive)/positional_data_total * 100 * 10)/10
                 abAliveLabel.text = "\(ab_alive_percentage)%"
                 
                 abAliveLabel.textColor = UIColor.whiteColor()

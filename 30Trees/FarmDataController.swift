@@ -30,7 +30,7 @@ class FarmDataController: NSObject, NSCoding {
             }
         }
         set {
-            var defaults = NSUserDefaults.standardUserDefaults()
+            let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(newValue!), forKey: FARMS_DATA_KEY)
             defaults.synchronize()
         }

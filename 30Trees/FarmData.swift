@@ -13,7 +13,7 @@ let AB_DEAD = "ab_dead"
 let CD = "cd"
 let LOCATION = "location"
 
-class FarmData: NSObject, NSCoding, Equatable {
+class FarmData: NSObject, NSCoding {
     var name: String
     var size: Double
     var num_trees: Int

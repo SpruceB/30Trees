@@ -1,6 +1,6 @@
 import UIKit
 let FARM_EDITOR_SEGUE = "FarmEditorPushSegue"
-class SettingsViewController: UITableViewController, UITableViewDelegate, UINavigationControllerDelegate {
+class SettingsViewController: UITableViewController, UINavigationControllerDelegate {
     @IBOutlet var farmSettingsCell: UITableViewCell!
     @IBOutlet var reminderSettingsCell: UITableViewCell!
     
@@ -19,7 +19,7 @@ class SettingsViewController: UITableViewController, UITableViewDelegate, UINavi
     
     func exportData() {
         if let farm = FarmDataController.sharedInstance.selected_farm {
-            var csv_data = CSVExporter()
+            let csv_data = CSVExporter()
             csv_data.writeFarmData(farm)
             csv_data.emailFile(farm.name, recipient: "sprucebondera@gmail.com", view: self)
         } else {

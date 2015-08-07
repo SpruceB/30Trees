@@ -9,7 +9,7 @@ let CBB_KEY = "cbb"
 let FUNGUS_KEY = "fungus"
 let DATE_KEY = "date"
 
-class TreeData: NSObject, NSCoding, Equatable {
+class TreeData: NSObject, NSCoding {
     var green: Int
     var cbb: Int
     var fungus: Int
