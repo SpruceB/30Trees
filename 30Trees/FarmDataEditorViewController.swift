@@ -103,8 +103,8 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         self.tableView.allowsSelection = false
-        self.tableView.alwaysBounceVertical = false
-        self.tableView.scrollEnabled = false
+        self.tableView.alwaysBounceVertical = true
+        self.tableView.scrollEnabled = true
         
         acre_field.delegate = self
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")
