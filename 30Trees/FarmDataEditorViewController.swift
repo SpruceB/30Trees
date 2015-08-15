@@ -17,51 +17,118 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var acre_field: UITextField!
     @IBOutlet var tree_field: UITextField!
     @IBOutlet var location_field: UITextField!
+    var fields: [UITextField] = []
     
-    @IBAction func fieldEditingDidEnd(sender: UITextField) {
-        farm!.name = farm_name.text!
-        
-        let value = (acre_field.text! as NSString).doubleValue
-        if value == round(value) {
-            sender.text = "\(Int(value))"
+    func all_filled() -> Bool {
+        for f in fields {
+            if f.text == "" {
+                return false
+            }
         }
-        farm!.size = value
-        
-        if let num = Int(tree_field.text!) {
-            sender.text = "\(num)"
-            farm!.num_trees = num
-        } else {
-            sender.text = "\(farm!.num_trees)"
+        return true
+    }
+    
+    func syncInteractablesToData() {
+        if let name = farm?.name {
+            farm_name.text = name
         }
         
-        farm!.location = location_field.text!
+        if let size = farm?.size {
+            acre_field.text = String(size)
+        }
+        
+        if let trees = farm?.num_trees {
+            tree_field.text = String(trees)
+        }
+        
+        if let location = farm?.location {
+            location_field.text = String(location)
+        }
 
+    }
+
+    @IBAction func fieldEditingDidEnd(sender: UITextField) {
+//        if let name = farm_name.text {
+//            farm?.name = name
+//        }
+//        if let size_string = acre_field.text {
+//            if let size = Double(size_string) {
+//                farm?.size = size
+//                if size == round(size) {
+//                    acre_field.text = String(Int(size))
+//                }
+//            }
+//        }
+//        
+//        if let trees_string = tree_field.text {
+//            if let tree_num = Int(trees_string) {
+//                farm?.num_trees = tree_num
+//                
+//            } else {
+//                tree_field.text = String(farm?.num_trees)
+//            }
+//        }
+//        if let loc = location_field.text {
+//            farm?.location = loc
+//        }
+    }
+    
+    @IBAction func fieldEditingDidBegin(sender: UITextField) {
+//        let cell: UITableViewCell?
+//        if floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1 {
+//            cell = sender.superview?.superview as? UITableViewCell
+//        } else {
+//            print("7")
+//            cell = sender.superview?.superview as? UITableViewCell
+//        }
+//        
+//        if let index = tableView.indexPathForCell(cell!) {
+//            print("yay")
+//            tableView.scrollToRowAtIndexPath(index, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+//        } else {
+//            print("fail")
+//        }
     }
     
     @IBAction func farmNameEditingDidEnd(sender: UITextField) {
-        farm!.name = sender.text!
+        if let text = sender.text {
+            farm?.name = text
+        }
     }
 
     @IBAction func acreEditingDidEnd(sender: UITextField) {
-        let value = Double(sender.text!)!
-        if value == round(value) {
-            sender.text = "\(Int(value))"
+        if let text = sender.text {
+            if let value = Double(text) {
+                farm?.size = value
+            } else if text != "" {
+                sender.text = String(farm!.size)
+            }
         }
-        farm!.size = value
     }
     
     @IBAction func treeNumEditingDidEnd(sender: UITextField) {
-        if let value = Int(sender.text!) {
-            sender.text = "\(value)"
-            farm!.num_trees = value
-        } else {
-            sender.text = "\(farm!.num_trees)"
+        if let text = sender.text {
+            if let value = Int(text) {
+                farm?.num_trees = value
+            } else if text != "" {
+                sender.text = String(farm!.num_trees)
+            }
+        }
+    }
+    
+    @IBAction func locationEditingDidEnd(sender: UITextField) {
+        if let text = sender.text {
+            farm?.location = text
         }
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if textField === acre_field {
             if string == "." && (textField.text!.componentsSeparatedByString(".").count - 1) >= 1 {
+                return false
+            }
+        } else if textField == tree_field {
+            if Int(string) == nil {
                 return false
             }
         }
@@ -74,25 +141,27 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
         if self.farm != nil {
-            if is_new_farm && farm == FarmData(name: "") {
-                self.navigationController?.popViewControllerAnimated(true)
+            if is_new_farm && !all_filled() {
+                UIAlertView(title: "Incomplete Farm", message: "The fields have not been completely filled", delegate: self, cancelButtonTitle: "OK").show()
             } else {
                 if is_new_farm {
-                    FarmDataController.sharedInstance.farms_list.append((farm!))
+                    FarmDataController.sharedInstance.farms_list.append(farm!)
                 }
                 FarmDataController.sharedInstance.sync()
                 self.navigationController?.popViewControllerAnimated(true)
             }
         }
         else {
+            UIAlertView(title: "Something went wrong", message: "Please try again", delegate: self, cancelButtonTitle: "OK").show()
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBarHidden = false
-    }
+//    override func viewWillAppear(animated: Bool) {
+//        self.navigationController?.navigationBarHidden = false
+//    }
     override func viewDidAppear(animated: Bool) {
+        self.navigationController?.navigationBarHidden = false
         let back_button = UIBarButtonItem()
         back_button.title = "Cancel"
         self.navigationController?.navigationItem.backBarButtonItem = back_button
@@ -105,18 +174,16 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
         self.tableView.allowsSelection = false
         self.tableView.alwaysBounceVertical = true
         self.tableView.scrollEnabled = true
-        
+        fields = [farm_name, acre_field, tree_field, location_field]
         acre_field.delegate = self
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")
         gestureRecognizer.cancelsTouchesInView = false
         self.tableView.addGestureRecognizer(gestureRecognizer)
-        if let farm_data = farm {
+        if farm != nil {
             is_new_farm = false
-            farm_name.text = farm_data.name
-            acre_field.text = farm_data.size == round(farm_data.size) ? "\(Int(farm_data.size))" : "\(farm_data.size)"
-            tree_field.text = "\(farm_data.num_trees)"
+            syncInteractablesToData()
         } else {
-            farm = FarmData(name: "")
+            self.farm = FarmData(name: "")
         }
     }
     

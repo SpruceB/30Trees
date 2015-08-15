@@ -67,24 +67,38 @@ class CSVExporter {
         try NSFileManager.defaultManager().removeItemAtPath(directory_path + "/\(filename)")
     }
     
-    func emailFile<T: UIViewController where T: UINavigationControllerDelegate>(filename: String, recipient: String, view: T) {
-        let mail_composer = MFMailComposeViewController()
-        mail_composer.delegate = view
-        mail_composer.setToRecipients([recipient])
-        // TODO: Figure out good subject line
-        mail_composer.setSubject("30Trees Subject Line")
-        mail_composer.setMessageBody("Testing!\n", isHTML: false)
-        do {
-            try deleteFile(filename)
-            let filepath = try saveFile(filename)
-            let data = NSData.dataWithContentsOfMappedFile(filepath) as! NSData
-            mail_composer.addAttachmentData(data, mimeType: "text/csv", fileName: filename)
-            view.presentViewController(mail_composer, animated: true, completion: nil)
-            try deleteFile(filename)
-        } catch is ErrorType {
-            mail_composer.dismissViewControllerAnimated(false, completion: nil)
-            emailFile(filename + "_", recipient: recipient, view: view)
-            return
+    func emailFile<T: UIViewController where T: UINavigationControllerDelegate, T: MFMailComposeViewControllerDelegate>(filename: String, recipient: String, viewController: T) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail_composer = MFMailComposeViewController()
+            mail_composer.mailComposeDelegate = viewController
+            mail_composer.setToRecipients([recipient])
+            // TODO: Figure out good subject line
+            mail_composer.setSubject("30Trees Subject Line")
+            mail_composer.setMessageBody("Testing!\n", isHTML: false)
+            do {
+                if NSFileManager.defaultManager().fileExistsAtPath(filename) {
+                    try deleteFile(filename)
+                }
+                let filepath = try saveFile(filename)
+                let data = NSData.dataWithContentsOfMappedFile(filepath) as! NSData
+                mail_composer.addAttachmentData(data, mimeType: "text/csv", fileName: filename)
+                print("mail presenting")
+                viewController.presentViewController(mail_composer, animated: true, completion: nil)
+                print("mail presented")
+                if NSFileManager.defaultManager().fileExistsAtPath(filename) {
+                    try deleteFile(filename)
+                }
+            }
+            catch let error as NSError where error.domain == NSCocoaErrorDomain && error.code == 4 {
+                print("Cocoa Error")
+                UIAlertView(title: "An error has occured", message: "Please try again", delegate: nil, cancelButtonTitle: "OK").show()
+                print(error)
+            }
+            catch let error {
+                print("Unknown error: \(error)")
+            }
+        } else {
+            UIAlertView(title: "Device cannot send emails", message: "Your device must be able to send emails to export data", delegate: nil, cancelButtonTitle: "OK").show()
         }
     }
 }

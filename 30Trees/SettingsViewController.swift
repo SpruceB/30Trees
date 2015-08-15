@@ -1,6 +1,8 @@
 import UIKit
+import MessageUI
+
 let FARM_EDITOR_SEGUE = "FarmEditorPushSegue"
-class SettingsViewController: UITableViewController, UINavigationControllerDelegate {
+class SettingsViewController: UITableViewController, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate {
     @IBOutlet var farmSettingsCell: UITableViewCell!
     @IBOutlet var reminderSettingsCell: UITableViewCell!
     
@@ -17,11 +19,20 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
         }
     }
     
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        print("mailComposeController called")
+        if result == MFMailComposeResultSent { print("sent!") }
+        print(result)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func exportData() {
         if let farm = FarmDataController.sharedInstance.selected_farm {
             let csv_data = CSVExporter()
             csv_data.writeFarmData(farm)
-            csv_data.emailFile(farm.name, recipient: "sprucebondera@gmail.com", view: self)
+            print("cvs")
+            print(csv_data.csv_string)
+            csv_data.emailFile(farm.name, recipient: "sprucebondera@gmail.com", viewController: self)
         } else {
             UIAlertView(title: "No Farm Selected", message: "You must select a farm to export farm data", delegate: nil, cancelButtonTitle: "OK").show()
         }
