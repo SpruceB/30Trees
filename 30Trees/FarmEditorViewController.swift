@@ -29,6 +29,8 @@ class FarmEditorViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        print("appearing")
+        farms.sync()
         self.navigationController!.navigationBarHidden = false
         self.tableView.reloadData()
         selectSelectedRow()
