@@ -10,6 +10,7 @@ let NUM_TREES_KEY = "num_trees"
 let TREES_DATA_KEY = "trees_data"
 let AB_ALIVE = "ab_alive"
 let AB_DEAD = "ab_dead"
+let AB_ABSENT = "ab_absent"
 let CD = "cd"
 let LOCATION = "location"
 
@@ -20,17 +21,19 @@ class FarmData: NSObject, NSCoding {
     var trees_data: [TreeData]
     var ab_alive: Int
     var ab_dead: Int
+    var ab_absent: Int
     var cd: Int
     var location: String
     
     init(name: String, size: Double, num_trees: Int, trees_data: [TreeData],
-         ab_alive: Int, ab_dead: Int, cd: Int, location: String){
+        ab_alive: Int, ab_dead: Int, ab_absent: Int, cd: Int, location: String){
         self.name = name
         self.size = size
         self.num_trees = num_trees
         self.trees_data = trees_data
         self.ab_alive = ab_alive
         self.ab_dead = ab_dead
+        self.ab_absent = ab_absent
         self.cd = cd
         self.location = location
         super.init()
@@ -43,13 +46,14 @@ class FarmData: NSObject, NSCoding {
         self.trees_data = coder.decodeObjectForKey(TREES_DATA_KEY) as! [TreeData]
         self.ab_alive = coder.decodeIntegerForKey(AB_ALIVE)
         self.ab_dead = coder.decodeIntegerForKey(AB_DEAD)
+        self.ab_absent = coder.decodeIntegerForKey(AB_ABSENT)
         self.cd = coder.decodeIntegerForKey(CD)
         self.location = coder.decodeObjectForKey(LOCATION) as! String
         
     }
     
     convenience init(name: String) {
-        self.init(name: name, size: 0, num_trees: 0, trees_data: [], ab_alive: 0, ab_dead: 0, cd: 0, location: "")
+        self.init(name: name, size: 0, num_trees: 0, trees_data: [], ab_alive: 0, ab_dead: 0, ab_absent: 0, cd: 0, location: "")
     }
     
     func encodeWithCoder(coder: NSCoder) {
@@ -59,6 +63,7 @@ class FarmData: NSObject, NSCoding {
         coder.encodeObject(trees_data, forKey: TREES_DATA_KEY)
         coder.encodeInteger(ab_alive, forKey: AB_ALIVE)
         coder.encodeInteger(ab_dead, forKey: AB_DEAD)
+        coder.encodeInteger(ab_absent, forKey: AB_ABSENT)
         coder.encodeInteger(cd, forKey: CD)
         coder.encodeObject(location, forKey: LOCATION)
     }
