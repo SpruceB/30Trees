@@ -17,6 +17,9 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var acre_field: UITextField!
     @IBOutlet var tree_field: UITextField!
     @IBOutlet var location_field: UITextField!
+    @IBOutlet var grower_name: UITextField!
+    @IBOutlet var phone_number: UITextField!
+    
     var fields: [UITextField] = []
     
     func all_filled() -> Bool {
@@ -44,7 +47,14 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
         if let location = farm?.location {
             location_field.text = String(location)
         }
-
+        
+        if let grower_name_ = farm?.grower_name {
+            grower_name.text = grower_name_
+        }
+        
+        if let number = farm?.phone_number {
+            phone_number.text = number
+        }
     }
     
     func syncDataToInteractables() {
@@ -59,7 +69,6 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
                 acre_field.text = String(farm!.size)
             }
         }
-        
 
         if let text = tree_field.text {
             if let value = Int(text) {
@@ -69,9 +78,16 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
             }
         }
         
-        
         if let text = location_field.text {
             farm?.location = text
+        }
+        
+        if let text = grower_name.text {
+            farm?.grower_name = text
+        }
+
+        if let text = phone_number.text {
+            farm?.phone_number = text
         }
     }
 
@@ -149,7 +165,7 @@ class FarmDataEditorViewController: UITableViewController, UITextFieldDelegate {
         self.tableView.allowsSelection = false
         self.tableView.alwaysBounceVertical = true
         self.tableView.scrollEnabled = true
-        fields = [farm_name, acre_field, tree_field, location_field]
+        fields = [farm_name, acre_field, tree_field, location_field, grower_name, phone_number]
         acre_field.delegate = self
         tree_field.delegate = self
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: "closeKeyboards")

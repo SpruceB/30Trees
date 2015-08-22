@@ -32,7 +32,7 @@ class ResultsViewController: UIViewController {
                 infestationRateLabel.text = "No Data"
             }
             
-            let positional_data_total = Double(farm.ab_alive + farm.ab_dead + farm.cd)
+            let positional_data_total = Double(farm.ab_alive + farm.ab_dead + farm.ab_absent + farm.cd)
             if positional_data_total != 0 {
                 let ab_alive_percentage = round(Double(farm.ab_alive)/positional_data_total * 100 * 10)/10
                 abAliveLabel.text = "\(ab_alive_percentage)%"
