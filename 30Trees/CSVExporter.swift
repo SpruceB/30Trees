@@ -7,20 +7,38 @@
 //
 
 import Foundation
-import MessageUI
+
 class CSVWriter {
     var csv_string = ""
     let deliminator: String
     let newline: String
+    
+
+    func convertDate(date: NSDate?) -> String? {
+        let f = NSDateFormatter()
+        f.timeStyle = NSDateFormatterStyle.NoStyle
+        f.dateStyle = NSDateFormatterStyle.LongStyle
+        f.locale = NSLocale.currentLocale()
+        if date != nil {
+            return f.stringFromDate(date!)
+        } else {
+            return nil
+        }
+    }
     
     init(deliminator:String=",", newline:String="\n") {
         self.deliminator = deliminator
         self.newline = newline
     }
     
-    convenience init(farm: FarmData) {
+    convenience init(farmForTrees: FarmData) {
         self.init()
-        self.writeFarmData(farm)
+        self.writeFarmTreeData(farmForTrees)
+    }
+    
+    convenience init(farmForFarm: FarmData) {
+        self.init()
+        self.writeFarmData(farmForFarm)
     }
     
     func writeField(field: AnyObject) {
@@ -31,33 +49,61 @@ class CSVWriter {
         csv_string.extend(write_string)
     }
     
-    func writeFields(fields: [AnyObject]) {
+    func writeFields(fields: [AnyObject?]) {
         for field in fields {
-            writeField(field)
+            if field != nil {
+                writeField(field!)
+            } else {
+                writeField("Unkown")
+            }
         }
     }
     
-    func writeLine(fields: [AnyObject]) {
+    func writeLine(fields: [AnyObject?]) {
         writeFields(fields)
         // Skips the last character to avoid the trailing deliminator added on by writeField
         csv_string = csv_string.substringToIndex(csv_string.endIndex.predecessor()).stringByAppendingString(newline)
     }
     
-    func writeFarmData(farm: FarmData) {
-        writeLine(["Green", "Fungus", "CBB"])//, "Date"])
+    func writeFarmTreeData(farm: FarmData) {
+        writeLine(["Green", "Fungus", "CBB", "Date"])
         for tree in farm.trees_data {
-            writeLine([tree.green, tree.fungus, tree.cbb])//, tree.date_created])
+            writeLine([tree.green, tree.fungus, tree.cbb, convertDate(tree.date_created)])
         }
         // Skips last newline
         csv_string = csv_string.substringToIndex(csv_string.endIndex.predecessor())
     }
+    func writeFarmData(farm: FarmData) {
+        let data: [(String, AnyObject?)] = [
+            ("Farm Name", farm.name),
+            ("Grower Name", farm.grower_name),
+            ("TMK", farm.location),
+            ("Phone Number", farm.phone_number),
+            ("Farm Size (acres)", farm.size),
+            ("Number of Trees", farm.num_trees),
+            ("AB Alive", farm.ab_alive),
+            ("AB Dead", farm.ab_dead),
+            ("AB Absent", farm.ab_absent),
+            ("CD", farm.cd),
+            ("Last Spray Date", convertDate(farm.last_spray_date))
+        ]
+        for (name, item) in data {
+            writeLine([name, item])
+        }
+    }
+}
+
+protocol CSVExporterDelegate {
+    func exporterWasSetup(sender: CSVExporter)
+    func exporterWasCleaned(sender: CSVExporter)
 }
 
 class CSVExporter {
     let farms: [FarmData]
     var currentDirectory: NSURL?
-    var farmURLs: [NSURL]?
+    var farmURLs: [(NSURL, NSURL)]?
     var setup = false
+    var delgate: CSVExporterDelegate?
     init(farms: [FarmData]) {
         self.farms = farms
     }
@@ -73,11 +119,10 @@ class CSVExporter {
     }
     
     func tempDirectory() -> NSURL {
-        let manager = NSFileManager.defaultManager()
-        let documents = manager.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).last
+        let temp = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         let uniqueString = NSProcessInfo().globallyUniqueString
-        let uniqueURL = documents?.URLByAppendingPathComponent(uniqueString, isDirectory: true)
-        return uniqueURL!
+        let uniqueURL = temp.URLByAppendingPathComponent(uniqueString, isDirectory: true)
+        return uniqueURL
     }
     
     func fileURL(name: String, dir: NSURL) -> NSURL {
@@ -88,31 +133,54 @@ class CSVExporter {
         setup = true
         currentDirectory = tempDirectory()
         let manager = NSFileManager.defaultManager()
-        try manager.createDirectoryAtURL(currentDirectory!, withIntermediateDirectories: false, attributes: nil)
-        farmURLs = []
-        for farm in self.farms {
-            let csv = CSVWriter(farm: farm)
-            let farmURL = currentDirectory?.URLByAppendingPathComponent(farm.name, isDirectory: false).URLByAppendingPathExtension("csv")
-            try saveFile(farmURL!, csv: csv)
-            farmURLs?.append(farmURL!)
+        do {
+            try manager.createDirectoryAtURL(currentDirectory!, withIntermediateDirectories: false, attributes: nil)
+            farmURLs = []
+            for farm in self.farms {
+                let csv_trees = CSVWriter(farmForTrees: farm)
+                let trees_csv_name = farm.name + " Tree Data"
+                let csv_farm = CSVWriter(farmForFarm: farm)
+                let farm_csv_name = farm.name + " Farm Data"
+                let treesURL = currentDirectory?.URLByAppendingPathComponent(trees_csv_name, isDirectory: false).URLByAppendingPathExtension("csv")
+                let farmURL = currentDirectory?.URLByAppendingPathComponent(farm_csv_name, isDirectory: false).URLByAppendingPathExtension("csv")
+                try saveFile(treesURL!, csv: csv_trees)
+                try saveFile(farmURL!, csv: csv_farm)
+                farmURLs?.append((treesURL!, farmURL!))
+            }
+        } catch let error {
+            throw CSVExporterError.FailedSetup(error: error)
         }
         print("setup!")
         print(self.farmURLs)
+        delgate?.exporterWasSetup(self)
     }
     
-    func cleanupFiles() {
+    func cleanupFiles() throws {
         let manager = NSFileManager.defaultManager()
         do {
-            for url in farmURLs! {
-                    try manager.removeItemAtURL(url.filePathURL!)
+            for (treeURL, farmURL) in farmURLs! {
+                if manager.fileExistsAtPath(treeURL.path!) {
+                    try manager.removeItemAtURL(treeURL.filePathURL!)
+                }
+                if manager.fileExistsAtPath(farmURL.path!) {
+                    try manager.removeItemAtURL(farmURL.filePathURL!)
+                }
             }
-            try manager.removeItemAtURL(currentDirectory!)
-        } catch {}
+            if let path = currentDirectory?.path {
+                if manager.fileExistsAtPath(path) {
+                    try manager.removeItemAtURL(currentDirectory!)
+                }
+            }
+        } catch let error {
+            throw CSVExporterError.FailedCleanup(error: error)
+        }
         farmURLs = nil
         currentDirectory = nil
         print("cleaned!")
         setup = false
+        delgate?.exporterWasCleaned(self)
     }
+
     
 //    func emailFile<T: UIViewController where T: UINavigationControllerDelegate, T: MFMailComposeViewControllerDelegate>(filename: String, recipient: String, viewController: T) {
 //        if MFMailComposeViewController.canSendMail() {
@@ -150,3 +218,11 @@ class CSVExporter {
 //        }
 //    }
 }
+
+enum CSVExporterError: ErrorType {
+    case MissingURLs
+    case FailedSetup(error: ErrorType?)
+    case FailedCleanup(error: ErrorType?)
+    case ErrorWithMessage(message: String)
+}
+

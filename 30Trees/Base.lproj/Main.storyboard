@@ -938,7 +938,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="n7R-9G-elV">
                         <barButtonItem key="backBarButtonItem" title="Done" id="BY0-zf-oVl"/>
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="6Vf-Tu-1LO">
+                        <barButtonItem key="rightBarButtonItem" title="Next Tree" id="6Vf-Tu-1LO">
                             <connections>
                                 <segue destination="TgP-u2-BRP" kind="show" identifier="Next Tree Push Segue" id="DGw-Zw-ZFL"/>
                             </connections>
