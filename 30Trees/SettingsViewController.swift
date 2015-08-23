@@ -20,7 +20,6 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
         if indexPath.section == 2 {
             self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
             exportButtonPressed()
-            
         }
     }
     
@@ -170,35 +169,52 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
     func printData(farm: FarmData) {
         
         if UIPrintInteractionController.isPrintingAvailable() {
-            
             let printController = UIPrintInteractionController.sharedPrintController()
             let exporter = CSVExporter(farms: [farm])
             
-            try! exporter.setupFiles()
-            
-            let trees_web_view = UIWebView()
-            trees_web_view.loadRequest(NSURLRequest(URL: exporter.farmURLs!.first!.0))
-            let farm_web_vew = UIWebView()
-            farm_web_vew.loadRequest(NSURLRequest(URL: exporter.farmURLs!.first!.1))
-            
-            let info = UIPrintInfo.printInfo()
-            info.duplex = UIPrintInfoDuplex.None
-            info.orientation = UIPrintInfoOrientation.Portrait
-            info.outputType = UIPrintInfoOutputType.Grayscale
-            let renderer = UIPrintPageRenderer()
-            let farm_web_view_formatter = farm_web_vew.viewPrintFormatter()
-            renderer.addPrintFormatter(farm_web_view_formatter, startingAtPageAtIndex: 0)
-            renderer.addPrintFormatter(trees_web_view.viewPrintFormatter(), startingAtPageAtIndex: 1)
-            
-            printController.printPageRenderer = renderer
-            printController.showsPageRange = true
-            printController.printInfo = info
-            printController.presentAnimated(false, completionHandler: nil)
+            do {
+                try exporter.setupFiles()
+                if let trees_url = exporter.farmURLs?.first?.0, farm_url = exporter.farmURLs?.first?.1 {
+                    let trees_web_view = UIWebView()
+                    trees_web_view.loadRequest(NSURLRequest(URL: trees_url))
+                    let farm_web_vew = UIWebView()
+                    farm_web_vew.loadRequest(NSURLRequest(URL: farm_url))
+                    
+                    let info = UIPrintInfo.printInfo()
+                    info.duplex = UIPrintInfoDuplex.None
+                    info.orientation = UIPrintInfoOrientation.Portrait
+                    info.outputType = UIPrintInfoOutputType.Grayscale
+                    let renderer = UIPrintPageRenderer()
+                    let farm_web_view_formatter = farm_web_vew.viewPrintFormatter()
+                    renderer.addPrintFormatter(farm_web_view_formatter, startingAtPageAtIndex: 0)
+                    renderer.addPrintFormatter(trees_web_view.viewPrintFormatter(), startingAtPageAtIndex: 1)
+                    printController.printPageRenderer = renderer
+                    printController.showsPageRange = true
+                    printController.printInfo = info
+
+                    printController.presentAnimated(true, completionHandler:
+                        {controller, successful, error in
+                            do {
+                                try exporter.cleanupFiles()
+                            } catch CSVExporterError.FailedCleanup(let cleanup_error) {
+                                print(cleanup_error)
+                            } catch {}
+                            if !successful && error != nil {
+                                self.errorAlert("Print failed", message: "Try again")}})
+                    
+                } else {
+                    throw CSVExporterError.MissingURLs
+                }
+                
+            } catch is CSVExporterError {
+                self.errorAlert("Failed data setup", message: "Try again after restarting")
+            } catch {
+                self.errorAlert("An unknown error occured", message: "Try again after restarting")
+            }
         } else {
             errorAlert("This device can't print", message: "Try on a different device")
         }
     }
-    
     
     override func viewWillDisappear(animated: Bool) {
         self.navigationController?.navigationBarHidden = false
