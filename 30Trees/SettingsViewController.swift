@@ -65,60 +65,6 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
         } else {
             self.errorAlert("No Farm Selected", message: "You need to select a farm before exporting data")
         }
-//
-//        let exporter = CSVExporter(farms: [FarmDataController.sharedInstance.selected_farm!])
-//        do {
-//            try exporter.setupFiles()
-//            let farmURLs = exporter.farmURLs!
-//            print(farmURLs)
-//            let info = UIPrintInfo()
-//            info.duplex = UIPrintInfoDuplex.None
-//            info.orientation = UIPrintInfoOrientation.Portrait
-//            info.outputType = UIPrintInfoOutputType.Grayscale
-//            let formatter = UIPrintPageRenderer()
-//            let items = [info, formatter, farmURLs.first!]
-//            let activityView = UIActivityViewController(activityItems: items, applicationActivities: nil)
-//            activityView.excludedActivityTypes = [UIActivityTypeAddToReadingList, UIActivityTypeAssignToContact,
-//                UIActivityTypeMessage, UIActivityTypePostToFacebook]
-//            
-//            if #available(iOS 8.0, *) {
-//                activityView.completionWithItemsHandler = {_, _, _, _ in exporter.cleanupFiles()}
-//            } else {
-//                activityView.completionHandler = {_, _ in exporter.cleanupFiles()}
-//            }
-//            if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
-//                let cellIndex = NSIndexPath(forRow: 0, inSection: 2)
-//                if #available(iOS 8.0, *) {
-//                    let exportCellLabel = self.tableView.cellForRowAtIndexPath(cellIndex)
-//                    let popover = activityView.popoverPresentationController
-//                    popover?.sourceView = exportCellLabel
-//                    popover?.sourceRect = exportCellLabel!.bounds
-//                    presentViewController(activityView, animated: true, completion: nil)
-//                } else {
-//                    let popover = UIPopoverController(contentViewController: activityView)
-//                    let rect = self.tableView.convertRect(self.tableView.rectForRowAtIndexPath(cellIndex),
-//                                                            toView: self.view)
-//                    popover.presentPopoverFromRect(rect,
-//                                                    inView: self.view,
-//                                                    permittedArrowDirections: UIPopoverArrowDirection.Any,
-//                                                    animated: true)
-//                }
-//            } else {
-//                self.presentViewController(activityView, animated: true, completion: nil)
-//            }
-//        } catch let error {
-//            print("fucked up!", error)
-//            if #available(iOS 8.0, *) {
-//                let alert = UIAlertController(title: "An error occured", message: "Please try again", preferredStyle: UIAlertControllerStyle.Alert)
-//                presentViewController(alert, animated: true, completion: nil)
-//                
-//            } else {
-//                UIAlertView(title: "An error occured", message: "Please try again", delegate: nil, cancelButtonTitle: "OK").show()
-//            }
-//            exporter.cleanupFiles()
-//        }
-//        
-        
     }
     
     func emailData(farm: FarmData, toAdmin: Bool = false) {
@@ -242,57 +188,4 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
         self.navigationController!.navigationBarHidden = true
         self.tableView.reloadData()
     }
-}
-
-class QuickLookManager: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
-    var exporter: CSVExporter?
-    init(farm: FarmData) {
-        self.exporter = CSVExporter(farms: [farm])
-        do {
-            try self.exporter!.setupFiles()
-        } catch let error {
-            print(error)
-            self.exporter = nil
-        }
-    }
-    
-    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
-        if let count = self.exporter?.farmURLs?.count {
-            return 2 * count
-        } else {
-            return 0
-        }
-    }
-    
-    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
-        if let urls = self.exporter?.farmURLs {
-            let (q, r) = (index / 2, index % 2)
-            return (r == 0 ? urls[q].0.filePathURL : urls[q].1.filePathURL)!
-        } else {
-            return NSBundle.mainBundle().URLForResource("default", withExtension: "rtf")!
-        }
-//        print("yay")
-//        let
-//        print(x)
-//        return x
-    }
-    
-    func previewController(controller: QLPreviewController, shouldOpenURL url: NSURL, forPreviewItem item: QLPreviewItem) -> Bool {
-        print("should?")
-        return true
-    }
-    
-    
-    func previewControllerDidDismiss(controller: QLPreviewController) {
-        print("at least got here...")
-        do {
-            try self.exporter?.cleanupFiles()
-            print("thank god")
-        } catch let error {
-            print("cleanup failed")
-            print(error)
-        }
-    }
-    
-
 }
