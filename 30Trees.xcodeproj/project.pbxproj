@@ -30,6 +30,7 @@
 		95DEF6C41A0DF60B0031F2B0 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEF6C21A0DF60B0031F2B0 /* ResultsViewController.swift */; };
 		95E1BFAC19EF6066005985FA /* TreeDataEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1BFAB19EF6066005985FA /* TreeDataEditorViewController.swift */; };
 		95E46F3319FED24700151ED4 /* PositionalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E46F3219FED24700151ED4 /* PositionalDataViewController.swift */; };
+		95EA1AEB1B8A0DBB00A42E30 /* default.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 95EA1AEA1B8A0DBB00A42E30 /* default.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		95DEF6C21A0DF60B0031F2B0 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		95E1BFAB19EF6066005985FA /* TreeDataEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeDataEditorViewController.swift; sourceTree = "<group>"; };
 		95E46F3219FED24700151ED4 /* PositionalDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionalDataViewController.swift; sourceTree = "<group>"; };
+		95EA1AEA1B8A0DBB00A42E30 /* default.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = default.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 				95DD6D711B7FDBA600F7CB6E /* AB-1.pdf */,
 				95DD6D6F1B7FD21C00F7CB6E /* tutorial.rtfd */,
 				95DD6D731B7FDDA800F7CB6E /* test.html */,
+				95EA1AEA1B8A0DBB00A42E30 /* default.rtf */,
 			);
 			name = html;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				95DD6D721B7FDBA600F7CB6E /* AB-1.pdf in Resources */,
 				95C6916B19D6443F005E0F43 /* Images.xcassets in Resources */,
 				95DD6D741B7FDDA800F7CB6E /* test.html in Resources */,
+				95EA1AEB1B8A0DBB00A42E30 /* default.rtf in Resources */,
 				95DD6D701B7FD21C00F7CB6E /* tutorial.rtfd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

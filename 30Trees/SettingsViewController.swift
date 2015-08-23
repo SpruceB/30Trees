@@ -1,5 +1,6 @@
 import UIKit
 import MessageUI
+import QuickLook
 
 let FARM_EDITOR_SEGUE = "FarmEditorPushSegue"
 class SettingsViewController: UITableViewController, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate {
@@ -24,7 +25,8 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
     }
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        dismissViewControllerAnimated(true, completion: nil)
+        print("yaya")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func errorAlert(title: String?, message: String?) {
@@ -38,24 +40,12 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
     }
     
     func exportButtonPressed() {
-        
-//        if #available(iOS 8.0, *) {
-//            let menu = UIAlertController(title: "Export", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-//            menu.addAction(UIAlertAction(title: "Email", style: UIAlertActionStyle.Default, handler: {U in self.emailData()}))
-//            menu.addAction(UIAlertAction(title: "Send to Admin", style: UIAlertActionStyle.Default, handler: {U in self.emailData(toAdmin: true)}))
-//            menu.addAction(UIAlertAction(title: "Print", style: UIAlertActionStyle.Default, handler: nil))
-//            menu.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-//            self.presentViewController(menu, animated: true, completion: nil)
-//        } else {
-//            let menu = UIAlertView(title: "test", message: "test", delegate: nil, cancelButtonTitle: "nil")
-//            menu.show()
-//        }
         if let farm = FarmDataController.sharedInstance.selected_farm {
             if #available(iOS 8.0, *) {
                 let menu = UIAlertController(title: "Export", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
                 menu.addAction(UIAlertAction(title: "Email", style: UIAlertActionStyle.Default, handler: {U in self.emailData(farm)}))
                 menu.addAction(UIAlertAction(title: "Send to Admin", style: UIAlertActionStyle.Default, handler: {U in self.emailData(farm, toAdmin: true)}))
-                menu.addAction(UIAlertAction(title: "Print", style: UIAlertActionStyle.Default, handler: nil))
+                menu.addAction(UIAlertAction(title: "Print", style: UIAlertActionStyle.Default, handler: {U in self.printData(farm)}))
                 
                 menu.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
                 if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
@@ -134,24 +124,27 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
     
     func emailData(farm: FarmData, toAdmin: Bool = false) {
         let mailComposer = MFMailComposeViewController()
-        mailComposer.delegate = self
+        mailComposer.mailComposeDelegate = self
         if toAdmin {
             mailComposer.setToRecipients([admin])
             mailComposer.setSubject("Thirty Trees Sampling Data")
+            mailComposer.setMessageBody("Farm data", isHTML: false)
         }
         let exporter = CSVExporter(farms: [farm])
-        exporter.delgate = UIApplication.sharedApplication().delegate as? CSVExporterDelegate
+        exporter.delegate = UIApplication.sharedApplication().delegate as? CSVExporterDelegate
         do {
             try exporter.setupFiles()
-            if let (trees_csv_url, farm_csv_url) = exporter.farmURLs?.first {
-                if let trees_data = NSData(contentsOfURL: trees_csv_url),
-                        farm_data = NSData(contentsOfURL: farm_csv_url) {
-                            
-                    mailComposer.addAttachmentData(trees_data, mimeType: "text/csv", fileName: trees_csv_url.lastPathComponent!)
-                    mailComposer.addAttachmentData(farm_data, mimeType: "text/csv", fileName: farm_csv_url.lastPathComponent!)
-                    self.presentViewController(mailComposer, animated: true, completion: nil)
-                } else {
-                    throw CSVExporterError.MissingURLs
+            if let urls = exporter.farmURLs {
+                for (trees_csv_url, farm_csv_url) in urls {
+                    if let trees_data = NSData(contentsOfURL: trees_csv_url),
+                            farm_data = NSData(contentsOfURL: farm_csv_url) {
+                                
+                        mailComposer.addAttachmentData(trees_data, mimeType: "text/csv", fileName: trees_csv_url.lastPathComponent!)
+                        mailComposer.addAttachmentData(farm_data, mimeType: "text/csv", fileName: farm_csv_url.lastPathComponent!)
+                        self.presentViewController(mailComposer, animated: true, completion: nil)
+                    } else {
+                        throw CSVExporterError.MissingURLs
+                    }
                 }
             } else {
                 throw CSVExporterError.FailedSetup(error: CSVExporterError.MissingURLs)
@@ -174,14 +167,36 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
         }
     }
     
-    func printData() {
-        let printController = UIPrintInteractionController.sharedPrintController()
-        let info = UIPrintInfo()
-        info.duplex = UIPrintInfoDuplex.None
-        info.orientation = UIPrintInfoOrientation.Portrait
-        info.outputType = UIPrintInfoOutputType.Grayscale
+    func printData(farm: FarmData) {
         
-        
+        if UIPrintInteractionController.isPrintingAvailable() {
+            
+            let printController = UIPrintInteractionController.sharedPrintController()
+            let exporter = CSVExporter(farms: [farm])
+            
+            try! exporter.setupFiles()
+            
+            let trees_web_view = UIWebView()
+            trees_web_view.loadRequest(NSURLRequest(URL: exporter.farmURLs!.first!.0))
+            let farm_web_vew = UIWebView()
+            farm_web_vew.loadRequest(NSURLRequest(URL: exporter.farmURLs!.first!.1))
+            
+            let info = UIPrintInfo.printInfo()
+            info.duplex = UIPrintInfoDuplex.None
+            info.orientation = UIPrintInfoOrientation.Portrait
+            info.outputType = UIPrintInfoOutputType.Grayscale
+            let renderer = UIPrintPageRenderer()
+            let farm_web_view_formatter = farm_web_vew.viewPrintFormatter()
+            renderer.addPrintFormatter(farm_web_view_formatter, startingAtPageAtIndex: 0)
+            renderer.addPrintFormatter(trees_web_view.viewPrintFormatter(), startingAtPageAtIndex: 1)
+            
+            printController.printPageRenderer = renderer
+            printController.showsPageRange = true
+            printController.printInfo = info
+            printController.presentAnimated(false, completionHandler: nil)
+        } else {
+            errorAlert("This device can't print", message: "Try on a different device")
+        }
     }
     
     
@@ -213,3 +228,55 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
     }
 }
 
+class QuickLookManager: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
+    var exporter: CSVExporter?
+    init(farm: FarmData) {
+        self.exporter = CSVExporter(farms: [farm])
+        do {
+            try self.exporter!.setupFiles()
+        } catch let error {
+            print(error)
+            self.exporter = nil
+        }
+    }
+    
+    func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
+        if let count = self.exporter?.farmURLs?.count {
+            return 2 * count
+        } else {
+            return 0
+        }
+    }
+    
+    func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
+        if let urls = self.exporter?.farmURLs {
+            let (q, r) = (index / 2, index % 2)
+            return (r == 0 ? urls[q].0.filePathURL : urls[q].1.filePathURL)!
+        } else {
+            return NSBundle.mainBundle().URLForResource("default", withExtension: "rtf")!
+        }
+//        print("yay")
+//        let
+//        print(x)
+//        return x
+    }
+    
+    func previewController(controller: QLPreviewController, shouldOpenURL url: NSURL, forPreviewItem item: QLPreviewItem) -> Bool {
+        print("should?")
+        return true
+    }
+    
+    
+    func previewControllerDidDismiss(controller: QLPreviewController) {
+        print("at least got here...")
+        do {
+            try self.exporter?.cleanupFiles()
+            print("thank god")
+        } catch let error {
+            print("cleanup failed")
+            print(error)
+        }
+    }
+    
+
+}

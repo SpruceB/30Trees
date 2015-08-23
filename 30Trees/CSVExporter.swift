@@ -103,12 +103,12 @@ class CSVExporter {
     var currentDirectory: NSURL?
     var farmURLs: [(NSURL, NSURL)]?
     var setup = false
-    var delgate: CSVExporterDelegate?
+    var delegate: CSVExporterDelegate?
     init(farms: [FarmData]) {
         self.farms = farms
     }
     func saveFile(fileURL: NSURL, csv: CSVWriter) throws {
-        try csv.csv_string.writeToURL(fileURL.filePathURL!, atomically: false, encoding: NSUnicodeStringEncoding)
+        try csv.csv_string.writeToURL(fileURL.filePathURL!, atomically: false, encoding: NSUTF8StringEncoding)
     }
     
     func deleteFile(fileURL: NSURL) throws {
@@ -121,12 +121,12 @@ class CSVExporter {
     func tempDirectory() -> NSURL {
         let temp = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         let uniqueString = NSProcessInfo().globallyUniqueString
-        let uniqueURL = temp.URLByAppendingPathComponent(uniqueString, isDirectory: true)
+        let uniqueURL = temp.URLByAppendingPathComponent(uniqueString, isDirectory: true).filePathURL!
         return uniqueURL
     }
     
-    func fileURL(name: String, dir: NSURL) -> NSURL {
-        return dir.URLByAppendingPathComponent(name.stringByReplacingOccurrencesOfString("/", withString: "-frwrd_slash-"), isDirectory: false).URLByAppendingPathExtension("txt")
+    func fileURLGen(name: String, dir: NSURL) -> NSURL {
+        return dir.URLByAppendingPathComponent(name.stringByReplacingOccurrencesOfString("/", withString: "-frwrd_slash-"), isDirectory: false).URLByAppendingPathExtension("csv").filePathURL!
     }
     
     func setupFiles() throws {
@@ -141,18 +141,18 @@ class CSVExporter {
                 let trees_csv_name = farm.name + " Tree Data"
                 let csv_farm = CSVWriter(farmForFarm: farm)
                 let farm_csv_name = farm.name + " Farm Data"
-                let treesURL = currentDirectory?.URLByAppendingPathComponent(trees_csv_name, isDirectory: false).URLByAppendingPathExtension("csv")
-                let farmURL = currentDirectory?.URLByAppendingPathComponent(farm_csv_name, isDirectory: false).URLByAppendingPathExtension("csv")
-                try saveFile(treesURL!, csv: csv_trees)
-                try saveFile(farmURL!, csv: csv_farm)
-                farmURLs?.append((treesURL!, farmURL!))
+                let treesURL = fileURLGen(trees_csv_name, dir: currentDirectory!)
+                let farmURL = fileURLGen(farm_csv_name, dir: currentDirectory!)
+                try saveFile(treesURL, csv: csv_trees)
+                try saveFile(farmURL, csv: csv_farm)
+                farmURLs?.append((treesURL, farmURL))
             }
         } catch let error {
             throw CSVExporterError.FailedSetup(error: error)
         }
         print("setup!")
         print(self.farmURLs)
-        delgate?.exporterWasSetup(self)
+        delegate?.exporterWasSetup(self)
     }
     
     func cleanupFiles() throws {
@@ -178,7 +178,7 @@ class CSVExporter {
         currentDirectory = nil
         print("cleaned!")
         setup = false
-        delgate?.exporterWasCleaned(self)
+        delegate?.exporterWasCleaned(self)
     }
 
     
