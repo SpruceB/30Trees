@@ -96,19 +96,19 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
             }
             try exporter.cleanupFiles()
         } catch CSVExporterError.MissingURLs {
-            self.errorAlert("Export data missing", message: "The data to export could not be found. Try again after restarting.")
+            self.errorAlert("Export data missing", message: "The data to export could not be found. Try again later.")
         } catch CSVExporterError.FailedSetup(let error) {
-            self.errorAlert("Export setup failed", message: "The data to export failed to set up properly. Try again after restarting.")
+            self.errorAlert("Export setup failed", message: "The data to export failed to set up properly. Try again later.")
             print(error)
             do {
                 try exporter.cleanupFiles()
             } catch {}
         } catch CSVExporterError.FailedCleanup(let error) {
-            self.errorAlert("Data cleanup failed", message: "The data being sent failed to clean up. It will be cleared automatically later.")
+            self.errorAlert("Data cleanup failed", message: "It will be cleared automatically later.")
             print(error)
         }
         catch {
-            self.errorAlert("An unkown error occured", message: "Try again after restarting.")
+            self.errorAlert("An unkown error occured", message: "Try again after later.")
         }
     }
     
@@ -153,9 +153,9 @@ class SettingsViewController: UITableViewController, UINavigationControllerDeleg
                 }
                 
             } catch is CSVExporterError {
-                self.errorAlert("Failed data setup", message: "Try again after restarting")
+                self.errorAlert("Failed data setup", message: "Try again later")
             } catch {
-                self.errorAlert("An unknown error occured", message: "Try again after restarting")
+                self.errorAlert("An unknown error occured", message: "Try again later")
             }
         } else {
             errorAlert("This device can't print", message: "Try on a different device")

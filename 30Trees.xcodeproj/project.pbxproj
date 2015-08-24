@@ -23,14 +23,14 @@
 		95C6917719D6443F005E0F43 /* Swift_CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C6917619D6443F005E0F43 /* Swift_CalculatorTests.swift */; };
 		95C6E40C1A3E959E0034E7E6 /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C6E40B1A3E959E0034E7E6 /* ReminderViewController.swift */; };
 		95C769961A18057000A84191 /* CSVExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C769951A18057000A84191 /* CSVExporter.swift */; };
+		95CB37581B8A800A003BB236 /* Why Sample?.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 95CB37571B8A800A003BB236 /* Why Sample?.rtf */; };
+		95CB375B1B8A8839003BB236 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = 95CB375A1B8A8839003BB236 /* Help */; };
 		95DD6D701B7FD21C00F7CB6E /* tutorial.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 95DD6D6F1B7FD21C00F7CB6E /* tutorial.rtfd */; };
 		95DD6D721B7FDBA600F7CB6E /* AB-1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 95DD6D711B7FDBA600F7CB6E /* AB-1.pdf */; };
-		95DD6D741B7FDDA800F7CB6E /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 95DD6D731B7FDDA800F7CB6E /* test.html */; };
 		95DD6D761B7FDE0900F7CB6E /* CD-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 95DD6D751B7FDE0900F7CB6E /* CD-1.png */; };
 		95DEF6C41A0DF60B0031F2B0 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEF6C21A0DF60B0031F2B0 /* ResultsViewController.swift */; };
 		95E1BFAC19EF6066005985FA /* TreeDataEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E1BFAB19EF6066005985FA /* TreeDataEditorViewController.swift */; };
 		95E46F3319FED24700151ED4 /* PositionalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E46F3219FED24700151ED4 /* PositionalDataViewController.swift */; };
-		95EA1AEB1B8A0DBB00A42E30 /* default.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 95EA1AEA1B8A0DBB00A42E30 /* default.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,14 +64,14 @@
 		95C6917619D6443F005E0F43 /* Swift_CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_CalculatorTests.swift; sourceTree = "<group>"; };
 		95C6E40B1A3E959E0034E7E6 /* ReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		95C769951A18057000A84191 /* CSVExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVExporter.swift; sourceTree = "<group>"; };
+		95CB37571B8A800A003BB236 /* Why Sample?.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Why Sample?.rtf"; sourceTree = "<group>"; };
+		95CB375A1B8A8839003BB236 /* Help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Help; sourceTree = "<group>"; };
 		95DD6D6F1B7FD21C00F7CB6E /* tutorial.rtfd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.rtfd; path = tutorial.rtfd; sourceTree = "<group>"; };
 		95DD6D711B7FDBA600F7CB6E /* AB-1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "AB-1.pdf"; sourceTree = "<group>"; };
-		95DD6D731B7FDDA800F7CB6E /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
 		95DD6D751B7FDE0900F7CB6E /* CD-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CD-1.png"; sourceTree = "<group>"; };
 		95DEF6C21A0DF60B0031F2B0 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		95E1BFAB19EF6066005985FA /* TreeDataEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeDataEditorViewController.swift; sourceTree = "<group>"; };
 		95E46F3219FED24700151ED4 /* PositionalDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionalDataViewController.swift; sourceTree = "<group>"; };
-		95EA1AEA1B8A0DBB00A42E30 /* default.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = default.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +148,7 @@
 		95C6915F19D6443F005E0F43 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				95CB375A1B8A8839003BB236 /* Help */,
 				95DD6D6E1B7FD1E900F7CB6E /* html */,
 				95C6916019D6443F005E0F43 /* Info.plist */,
 			);
@@ -177,8 +178,7 @@
 				95DD6D751B7FDE0900F7CB6E /* CD-1.png */,
 				95DD6D711B7FDBA600F7CB6E /* AB-1.pdf */,
 				95DD6D6F1B7FD21C00F7CB6E /* tutorial.rtfd */,
-				95DD6D731B7FDDA800F7CB6E /* test.html */,
-				95EA1AEA1B8A0DBB00A42E30 /* default.rtf */,
+				95CB37571B8A800A003BB236 /* Why Sample?.rtf */,
 			);
 			name = html;
 			sourceTree = "<group>";
@@ -265,12 +265,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95CB375B1B8A8839003BB236 /* Help in Resources */,
 				95DD6D761B7FDE0900F7CB6E /* CD-1.png in Resources */,
 				95C6916919D6443F005E0F43 /* Main.storyboard in Resources */,
+				95CB37581B8A800A003BB236 /* Why Sample?.rtf in Resources */,
 				95DD6D721B7FDBA600F7CB6E /* AB-1.pdf in Resources */,
 				95C6916B19D6443F005E0F43 /* Images.xcassets in Resources */,
-				95DD6D741B7FDDA800F7CB6E /* test.html in Resources */,
-				95EA1AEB1B8A0DBB00A42E30 /* default.rtf in Resources */,
 				95DD6D701B7FD21C00F7CB6E /* tutorial.rtfd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

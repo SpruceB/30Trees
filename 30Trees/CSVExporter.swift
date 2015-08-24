@@ -126,6 +126,10 @@ class CSVExporter {
     }
     
     func fileURLGen(name: String, dir: NSURL) -> NSURL {
+        var name = name.stringByReplacingOccurrencesOfString("/", withString: "").stringByReplacingOccurrencesOfString(":", withString: "")
+        if name.characters.count >= Int(NAME_MAX) {
+            name = name.substringWithRange(name.startIndex..<advance(name.startIndex, Int(NAME_MAX)))
+        }
         return dir.URLByAppendingPathComponent(name.stringByReplacingOccurrencesOfString("/", withString: "-frwrd_slash-"), isDirectory: false).URLByAppendingPathExtension("csv").filePathURL!
     }
     
